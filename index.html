@@ -5,256 +5,304 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>TN Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet"/>
-<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction:rtl}
-input,button{font-family:'Tajawal',sans-serif}
+body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction:rtl;min-height:100vh}
+input,button,select{font-family:'Tajawal',sans-serif}
 input:focus{outline:none;border-color:#26A17B!important}
+.nav{background:rgba(8,13,26,0.97);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:58px;position:sticky;top:0;z-index:99}
+.logo{font-size:18px;font-weight:900;color:#26A17B}
+.wrap{max-width:700px;margin:0 auto;padding:32px 14px}
+.wrap-sm{max-width:480px;margin:0 auto;padding:20px 14px}
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:22px}
+.service-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.service-card{border-radius:18px;padding:24px 14px;cursor:pointer;text-align:center;transition:transform 0.2s}
+.service-card:hover{transform:translateY(-4px)}
+.sub-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sub-card{border-radius:14px;padding:16px 10px;cursor:pointer;text-align:center;transition:all 0.2s}
+.method-grid{display:flex;gap:8px;margin-bottom:18px}
+.method-card{flex:1;border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer;transition:all 0.2s}
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.pkg-card{border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;position:relative;transition:all 0.2s}
+.pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pay-card{border-radius:12px;padding:12px;text-align:center}
+.inp{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 14px;color:#fff;font-size:15px;margin-bottom:14px}
+.btn{background:linear-gradient(135deg,#26A17B,#0e5c42);color:#fff;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:800;width:100%;cursor:pointer;margin-bottom:10px;font-family:'Tajawal',sans-serif}
+.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E)}
+.btn-ghost{background:rgba(255,255,255,0.06);color:#E8EDF5}
+.btn-ff{background:linear-gradient(135deg,#FFD700,#FF6B00)}
+.notif{position:fixed;top:16px;left:50%;transform:translateX(-50%);border-radius:10px;padding:12px 22px;z-index:999;font-weight:700;white-space:nowrap;font-size:14px;display:none}
+.notif.show{display:block}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:16px;text-align:center}
+.orders-table{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden}
+.order-row{padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.page{display:none}
+.page.active{display:block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.dot{width:8px;height:8px;border-radius:50%;background:#26A17B;display:inline-block;animation:pulse 2s infinite}
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel">
-const WHATSAPP_NUMBER = "21696530971";
-const SELLER_PHONE = { D17:"96 530 971", Flouci:"51 186 982", IZI:"96 530 971" };
-const USDT_RATE = 4.7;
-const METHODS = [
-  {id:"D17",label:"D17",icon:"📱",color:"#FF6B00",bg:"rgba(255,107,0,0.12)",border:"rgba(255,107,0,0.4)"},
-  {id:"Flouci",label:"Flouci",icon:"💜",color:"#7C3AED",bg:"rgba(124,58,237,0.12)",border:"rgba(124,58,237,0.4)"},
-  {id:"IZI",label:"IZI Wallet",icon:"💚",color:"#059669",bg:"rgba(5,150,105,0.12)",border:"rgba(5,150,105,0.4)"},
-];
-const FF_PACKAGES = [
-  {id:1,gems:100,price:5,bonus:0,popular:false},
-  {id:2,gems:310,price:14,bonus:10,popular:false},
-  {id:3,gems:520,price:23,bonus:20,popular:true},
-  {id:4,gems:1060,price:45,bonus:50,popular:false},
-  {id:5,gems:2120,price:90,bonus:100,popular:false},
-];
-const SUBSCRIPTIONS = [
-  {id:"cupcat",name:"Cupcat",icon:"🎵",color:"#FF4E8B",bg:"rgba(255,78,139,0.12)",border:"rgba(255,78,139,0.35)",desc:"موسيقى بدون انقطاع",price:18},
-  {id:"youtube",name:"YouTube Premium",icon:"▶️",color:"#FF0000",bg:"rgba(255,0,0,0.10)",border:"rgba(255,0,0,0.3)",desc:"بدون إعلانات",price:55},
-  {id:"chatgpt",name:"ChatGPT Plus",icon:"🤖",color:"#10A37F",bg:"rgba(16,163,127,0.12)",border:"rgba(16,163,127,0.35)",desc:"GPT-4 بدون حدود",price:80},
-  {id:"claude",name:"Claude Pro",icon:"🧠",color:"#CC785C",bg:"rgba(204,120,92,0.12)",border:"rgba(204,120,92,0.35)",desc:"أقوى مساعد AI",price:80},
-];
 
-function buildMsg(o) {
-  if(o.type==="usdt") return encodeURIComponent(`🟢 طلب USDT\nالاسم: ${o.name}\nالكمية: ${o.amount} USDT\nالمبلغ: ${o.tnd} TND\nالشبكة: ${o.network}\nالمحفظة: ${o.wallet}\nالدفع: ${o.method}\nرقم: ${o.id}`);
-  if(o.type==="ff") return encodeURIComponent(`🔥 طلب Free Fire\nالاسم: ${o.name}\nالجواهر: ${o.gems} 💎\nالمبلغ: ${o.tnd} TND\nID: ${o.playerId}\nالدفع: ${o.method}\nرقم: ${o.id}`);
-  return encodeURIComponent(`${o.subIcon} اشتراك ${o.subName}\nالاسم: ${o.name}\nالمبلغ: ${o.tnd} TND\nالإيميل: ${o.email}\nالدفع: ${o.method}\nرقم: ${o.id}`);
-}
+<div id="notif" class="notif"></div>
 
-function App() {
-  const [page,setPage]=React.useState("home");
-  const [service,setService]=React.useState(null);
-  const [method,setMethod]=React.useState(null);
-  const [name,setName]=React.useState("");
-  const [step,setStep]=React.useState("form");
-  const [usdtAmount,setUsdtAmount]=React.useState("");
-  const [wallet,setWallet]=React.useState("");
-  const [network,setNetwork]=React.useState("TRC20");
-  const [ffPkg,setFfPkg]=React.useState(null);
-  const [playerId,setPlayerId]=React.useState("");
-  const [selSub,setSelSub]=React.useState(null);
-  const [email,setEmail]=React.useState("");
-  const [lastOrder,setLastOrder]=React.useState(null);
-  const [notif,setNotif]=React.useState(null);
-  const [stock,setStock]=React.useState(5000);
-  const [adminPass,setAdminPass]=React.useState("");
-  const [adminIn,setAdminIn]=React.useState(false);
-  const [orders,setOrders]=React.useState([]);
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <nav class="nav">
+    <span class="logo">🎮 TN Shop</span>
+    <button onclick="showPage('admin')" style="background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 14px;color:#8892A4;cursor:pointer;font-size:13px">⚙ إدارة</button>
+  </nav>
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:32px">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.25);border-radius:50px;padding:8px 20px;margin-bottom:18px">
+        <span class="dot"></span>
+        <span style="color:#26A17B;font-weight:700;font-size:13px">متاح الآن للشراء</span>
+      </div>
+      <h1 style="font-size:clamp(22px,5vw,40px);font-weight:900;line-height:1.3;margin-bottom:10px">
+        متجر <span style="color:#26A17B">USDT</span> و <span style="color:#FFD700">الألعاب</span> و <span style="color:#FF4E8B">الاشتراكات</span>
+      </h1>
+      <p style="color:#8892A4;font-size:14px">دفع آمن عبر D17 · Flouci · IZI Wallet</p>
+    </div>
 
-  const tnd=usdtAmount?(parseFloat(usdtAmount)*USDT_RATE).toFixed(2):"0.00";
+    <div class="service-grid">
+      <div class="service-card" style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.3)" onclick="startOrder('usdt')">
+        <div style="font-size:40px">₮</div>
+        <div style="font-size:17px;font-weight:900;color:#26A17B;margin:8px 0 4px">شراء USDT</div>
+        <div style="font-size:20px;font-weight:900;color:#4ECBA0">4.7 <span style="font-size:12px;color:#8892A4">TND/USDT</span></div>
+      </div>
+      <div class="service-card" style="background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3)" onclick="startOrder('ff')">
+        <div style="font-size:40px">💎</div>
+        <div style="font-size:17px;font-weight:900;color:#FFD700;margin:8px 0 4px">جواهر FF</div>
+        <div style="font-size:20px;font-weight:900;color:#FF6B00">من 5 <span style="font-size:12px;color:#8892A4">دينار</span></div>
+      </div>
+    </div>
 
-  const showNotif=(msg,type="success")=>{setNotif({msg,type});setTimeout(()=>setNotif(null),3000);};
-
-  const reset=()=>{setMethod(null);setName("");setStep("form");setUsdtAmount("");setWallet("");setNetwork("TRC20");setFfPkg(null);setPlayerId("");setSelSub(null);setEmail("");setPage("home");setService(null);setLastOrder(null);};
-
-  const handleOrder=()=>{
-    if(!method) return showNotif("اختر طريقة الدفع","error");
-    if(!name.trim()) return showNotif("أدخل اسمك","error");
-    let order;
-    if(service==="usdt"){
-      if(!usdtAmount||parseFloat(usdtAmount)<=0) return showNotif("أدخل الكمية","error");
-      if(!wallet.trim()) return showNotif("أدخل عنوان المحفظة","error");
-      if(parseFloat(usdtAmount)>stock) return showNotif("الكمية غير متوفرة","error");
-      order={id:"TN-"+Date.now(),type:"usdt",amount:parseFloat(usdtAmount),tnd:parseFloat(tnd),method,name,wallet,network,date:new Date().toLocaleString(),status:"pending"};
-      setStock(s=>s-parseFloat(usdtAmount));
-    } else if(service==="ff"){
-      if(!ffPkg) return showNotif("اختر الباقة","error");
-      if(!playerId.trim()) return showNotif("أدخل ID اللاعب","error");
-      order={id:"FF-"+Date.now(),type:"ff",gems:ffPkg.gems,tnd:ffPkg.price,method,name,playerId,date:new Date().toLocaleString(),status:"pending"};
-    } else {
-      if(!selSub) return showNotif("اختر الاشتراك","error");
-      if(!email.trim()) return showNotif("أدخل بريدك الإلكتروني","error");
-      order={id:"SUB-"+Date.now(),type:"sub",subName:selSub.name,subIcon:selSub.icon,tnd:selSub.price,method,name,email,date:new Date().toLocaleString(),status:"pending"};
-    }
-    setOrders(p=>[order,...p]);setLastOrder(order);setStep("confirm");
-    setTimeout(()=>window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${buildMsg(order)}`,"_blank"),800);
-  };
-
-  const inp={width:"100%",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.12)",borderRadius:12,padding:"12px 14px",color:"#fff",fontSize:15,marginBottom:14,boxSizing:"border-box"};
-  const btn=(bg)=>({background:bg||"linear-gradient(135deg,#26A17B,#0e5c42)",color:"#fff",border:"none",borderRadius:14,padding:15,fontSize:16,fontWeight:800,width:"100%",cursor:"pointer",marginBottom:10});
-
-  if(page==="home") return (
-    <div style={{minHeight:"100vh"}}>
-      {notif&&<div style={{position:"fixed",top:16,left:"50%",transform:"translateX(-50%)",background:notif.type==="error"?"#450a0a":"#022c22",border:`1px solid ${notif.type==="error"?"#ef4444":"#26A17B"}`,color:"#fff",borderRadius:10,padding:"12px 22px",zIndex:999,fontWeight:700,whiteSpace:"nowrap",fontSize:14}}>{notif.msg}</div>}
-      <nav style={{background:"rgba(8,13,26,0.97)",borderBottom:"1px solid rgba(255,255,255,0.06)",display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 20px",height:58,position:"sticky",top:0,zIndex:99}}>
-        <span style={{fontSize:18,fontWeight:900,color:"#26A17B"}}>🎮 TN Shop</span>
-        <button onClick={()=>setPage("admin")} style={{background:"transparent",border:"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"6px 14px",color:"#8892A4",cursor:"pointer",fontSize:13}}>⚙ إدارة</button>
-      </nav>
-      <div style={{maxWidth:700,margin:"0 auto",padding:"32px 14px"}}>
-        <div style={{textAlign:"center",marginBottom:32}}>
-          <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(38,161,123,0.1)",border:"1px solid rgba(38,161,123,0.25)",borderRadius:50,padding:"8px 20px",marginBottom:18}}>
-            <span style={{width:8,height:8,borderRadius:"50%",background:"#26A17B",display:"inline-block",animation:"pulse 2s infinite"}}/>
-            <span style={{color:"#26A17B",fontWeight:700,fontSize:13}}>متاح الآن للشراء</span>
-          </div>
-          <h1 style={{fontSize:"clamp(22px,5vw,40px)",fontWeight:900,lineHeight:1.3,marginBottom:10}}>
-            متجر <span style={{color:"#26A17B"}}>USDT</span> و <span style={{color:"#FFD700"}}>الألعاب</span> و <span style={{color:"#FF4E8B"}}>الاشتراكات</span>
-          </h1>
-          <p style={{color:"#8892A4",fontSize:14}}>دفع آمن عبر D17 · Flouci · IZI Wallet</p>
+    <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:16px;margin-bottom:20px">
+      <div style="font-size:14px;font-weight:800;color:#8892A4;margin-bottom:12px;text-align:center">🔑 الاشتراكات الشهرية</div>
+      <div class="sub-grid">
+        <div class="sub-card" style="background:rgba(255,78,139,0.12);border:1px solid rgba(255,78,139,0.35)" onclick="startSub('cupcat','Cupcat','🎵',18,'#FF4E8B')">
+          <div style="font-size:28px;margin-bottom:4px">🎵</div>
+          <div style="font-size:12px;font-weight:800;color:#FF4E8B;margin-bottom:4px">Cupcat</div>
+          <div style="font-size:11px;color:#8892A4;margin-bottom:4px">موسيقى بدون انقطاع</div>
+          <div style="font-size:16px;font-weight:900;color:#fff">18 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
         </div>
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:14}}>
-          <div onClick={()=>{setService("usdt");setPage("order");}} style={{background:"rgba(38,161,123,0.1)",border:"1px solid rgba(38,161,123,0.3)",borderRadius:18,padding:"24px 14px",cursor:"pointer",textAlign:"center"}}>
-            <div style={{fontSize:40}}>₮</div>
-            <div style={{fontSize:17,fontWeight:900,color:"#26A17B",margin:"8px 0 4px"}}>شراء USDT</div>
-            <div style={{fontSize:20,fontWeight:900,color:"#4ECBA0"}}>4.7 <span style={{fontSize:12,color:"#8892A4"}}>TND/USDT</span></div>
-          </div>
-          <div onClick={()=>{setService("ff");setPage("order");}} style={{background:"rgba(255,165,0,0.1)",border:"1px solid rgba(255,165,0,0.3)",borderRadius:18,padding:"24px 14px",cursor:"pointer",textAlign:"center"}}>
-            <div style={{fontSize:40}}>💎</div>
-            <div style={{fontSize:17,fontWeight:900,color:"#FFD700",margin:"8px 0 4px"}}>جواهر FF</div>
-            <div style={{fontSize:20,fontWeight:900,color:"#FF6B00"}}>من 5 <span style={{fontSize:12,color:"#8892A4"}}>دينار</span></div>
-          </div>
+        <div class="sub-card" style="background:rgba(255,0,0,0.10);border:1px solid rgba(255,0,0,0.3)" onclick="startSub('youtube','YouTube Premium','▶️',55,'#FF0000')">
+          <div style="font-size:28px;margin-bottom:4px">▶️</div>
+          <div style="font-size:12px;font-weight:800;color:#FF0000;margin-bottom:4px">YouTube Premium</div>
+          <div style="font-size:11px;color:#8892A4;margin-bottom:4px">بدون إعلانات</div>
+          <div style="font-size:16px;font-weight:900;color:#fff">55 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
         </div>
-        <div style={{background:"rgba(255,255,255,0.02)",border:"1px solid rgba(255,255,255,0.07)",borderRadius:18,padding:16,marginBottom:20}}>
-          <div style={{fontSize:14,fontWeight:800,color:"#8892A4",marginBottom:12,textAlign:"center"}}>🔑 الاشتراكات الشهرية</div>
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}}>
-            {SUBSCRIPTIONS.map(sub=>(
-              <div key={sub.id} onClick={()=>{setService("sub");setSelSub(sub);setPage("order");}} style={{background:sub.bg,border:`1px solid ${sub.border}`,borderRadius:14,padding:"16px 10px",cursor:"pointer",textAlign:"center"}}>
-                <div style={{fontSize:28,marginBottom:4}}>{sub.icon}</div>
-                <div style={{fontSize:12,fontWeight:800,color:sub.color,marginBottom:4}}>{sub.name}</div>
-                <div style={{fontSize:11,color:"#8892A4",marginBottom:4}}>{sub.desc}</div>
-                <div style={{fontSize:16,fontWeight:900,color:"#fff"}}>{sub.price} <span style={{fontSize:11,color:"#8892A4"}}>TND/شهر</span></div>
-              </div>
-            ))}
-          </div>
+        <div class="sub-card" style="background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.35)" onclick="startSub('chatgpt','ChatGPT Plus','🤖',80,'#10A37F')">
+          <div style="font-size:28px;margin-bottom:4px">🤖</div>
+          <div style="font-size:12px;font-weight:800;color:#10A37F;margin-bottom:4px">ChatGPT Plus</div>
+          <div style="font-size:11px;color:#8892A4;margin-bottom:4px">GPT-4 بدون حدود</div>
+          <div style="font-size:16px;font-weight:900;color:#fff">80 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
         </div>
-        <div style={{fontSize:14,fontWeight:800,color:"#8892A4",textAlign:"center",marginBottom:12}}>💳 طرق الدفع</div>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:10}}>
-          {METHODS.map(m=>(
-            <div key={m.id} style={{background:m.bg,border:`1px solid ${m.border}`,borderRadius:12,padding:12,textAlign:"center"}}>
-              <div style={{fontSize:22}}>{m.icon}</div>
-              <div style={{fontSize:12,fontWeight:700,color:m.color,marginTop:4}}>{m.label}</div>
-            </div>
-          ))}
+        <div class="sub-card" style="background:rgba(204,120,92,0.12);border:1px solid rgba(204,120,92,0.35)" onclick="startSub('claude','Claude Pro','🧠',80,'#CC785C')">
+          <div style="font-size:28px;margin-bottom:4px">🧠</div>
+          <div style="font-size:12px;font-weight:800;color:#CC785C;margin-bottom:4px">Claude Pro</div>
+          <div style="font-size:11px;color:#8892A4;margin-bottom:4px">أقوى مساعد AI</div>
+          <div style="font-size:16px;font-weight:900;color:#fff">80 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
         </div>
       </div>
     </div>
-  );
 
-  if(page==="order") {
-    if(step==="confirm"&&lastOrder){
-      const cm=METHODS.find(x=>x.id===lastOrder.method);
-      return (
-        <div style={{maxWidth:460,margin:"0 auto",padding:"30px 14px"}}>
-          <div style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(38,161,123,0.3)",borderRadius:20,padding:24,textAlign:"center"}}>
-            <div style={{fontSize:52}}>✅</div>
-            <h2 style={{margin:"12px 0 6px",fontSize:20}}>تم استلام طلبك!</h2>
-            <p style={{color:"#8892A4",fontSize:13,marginBottom:20}}>رقم الطلب: <span style={{color:"#26A17B",fontWeight:700}}>{lastOrder.id}</span></p>
-            <div style={{background:cm.bg,border:`1px solid ${cm.border}`,borderRadius:13,padding:16,marginBottom:16}}>
-              <div style={{fontSize:12,color:"#8892A4",marginBottom:6}}>حوّل المبلغ لهذا الرقم عبر {lastOrder.method}</div>
-              <div style={{fontSize:30,fontWeight:900,color:cm.color,letterSpacing:2}}>{SELLER_PHONE[lastOrder.method]}</div>
-              <div style={{fontSize:13,color:"#8892A4",marginTop:8}}>المبلغ: <strong style={{color:"#fff",fontSize:16}}>{lastOrder.tnd} TND</strong></div>
-            </div>
-            <div style={{background:"rgba(37,211,102,0.08)",border:"1px solid rgba(37,211,102,0.25)",borderRadius:12,padding:14,marginBottom:16}}>
-              <div style={{fontSize:13,color:"#25D366",fontWeight:700,marginBottom:6}}>📲 الخطوة التالية</div>
-              <div style={{fontSize:13,color:"#8892A4",marginBottom:10}}>أرسل لقطة شاشة التحويل عبر واتساب وسنرسل لك الخدمة خلال 5-10 دقائق</div>
-              <button onClick={()=>window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${buildMsg(lastOrder)}`,"_blank")} style={btn("linear-gradient(135deg,#25D366,#128C7E)")}>💬 فتح واتساب</button>
-            </div>
-            <button onClick={reset} style={btn("rgba(255,255,255,0.06)")}>طلب جديد</button>
-          </div>
-        </div>
-      );
-    }
-    return (
-      <div style={{maxWidth:480,margin:"0 auto",padding:"20px 14px"}}>
-        {notif&&<div style={{position:"fixed",top:16,left:"50%",transform:"translateX(-50%)",background:notif.type==="error"?"#450a0a":"#022c22",border:`1px solid ${notif.type==="error"?"#ef4444":"#26A17B"}`,color:"#fff",borderRadius:10,padding:"12px 22px",zIndex:999,fontWeight:700,whiteSpace:"nowrap",fontSize:14}}>{notif.msg}</div>}
-        <button onClick={reset} style={{background:"transparent",border:"1px solid rgba(255,255,255,0.1)",borderRadius:8,padding:"6px 14px",color:"#8892A4",cursor:"pointer",marginBottom:16,fontSize:13}}>← رجوع</button>
-        <div style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:20,padding:22}}>
-          <h2 style={{marginBottom:18,fontSize:19}}>{service==="usdt"?"₮ شراء USDT":service==="ff"?"💎 شحن Free Fire":"🔑 الاشتراكات"}</h2>
-          {service==="usdt"&&<>
-            <div style={{background:"rgba(38,161,123,0.1)",border:"1px solid rgba(38,161,123,0.2)",borderRadius:10,padding:"10px 14px",display:"flex",justifyContent:"space-between",marginBottom:16}}>
-              <span style={{color:"#8892A4",fontSize:13}}>السعر الثابت</span>
-              <span style={{color:"#26A17B",fontWeight:900}}>4.7 TND / USDT</span>
-            </div>
-            <label style={{fontSize:13,color:"#8892A4",display:"block",marginBottom:6}}>الكمية (USDT)</label>
-            <input type="number" placeholder="100" style={{...inp,fontSize:18,fontWeight:700}} value={usdtAmount} onChange={e=>setUsdtAmount(e.target.value)}/>
-            <div style={{background:"rgba(38,161,123,0.08)",border:"1px solid rgba(38,161,123,0.2)",borderRadius:10,padding:"12px 14px",marginBottom:16,display:"flex",justifyContent:"space-between"}}>
-              <span style={{color:"#8892A4",fontSize:13}}>ستدفع</span>
-              <span style={{color:"#26A17B",fontWeight:900,fontSize:20}}>{tnd} TND</span>
-            </div>
-            <label style={{fontSize:13,color:"#8892A4",display:"block",marginBottom:6}}>الشبكة</label>
-            <div style={{display:"flex",gap:8,marginBottom:14}}>
-              {["TRC20","BEP20","ERC20"].map(n=>(
-                <button key={n} onClick={()=>setNetwork(n)} style={{flex:1,background:network===n?"rgba(38,161,123,0.2)":"rgba(255,255,255,0.04)",border:`1px solid ${network===n?"#26A17B":"rgba(255,255,255,0.1)"}`,borderRadius:8,padding:8,color:network===n?"#26A17B":"#8892A4",fontSize:12,fontWeight:700,cursor:"pointer"}}>{n}</button>
-              ))}
-            </div>
-            <label style={{fontSize:13,color:"#8892A4",display:"block",marginBottom:6}}>عنوان المحفظة</label>
-            <input placeholder="عنوان المحفظة..." style={{...inp,direction:"ltr",textAlign:"left",fontSize:13}} value={wallet} onChange={e=>setWallet(e.target.value)}/>
-          </>}
-          {service==="ff"&&<>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:16}}>
-              {FF_PACKAGES.map(pkg=>(
-                <div key={pkg.id} onClick={()=>setFfPkg(pkg)} style={{background:ffPkg?.id===pkg.id?"rgba(255,215,0,0.12)":"rgba(255,255,255,0.03)",border:`2px solid ${ffPkg?.id===pkg.id?"#FFD700":"rgba(255,255,255,0.08)"}`,borderRadius:12,padding:"14px 10px",textAlign:"center",cursor:"pointer",position:"relative"}}>
-                  {pkg.popular&&<div style={{position:"absolute",top:-9,left:"50%",transform:"translateX(-50%)",background:"linear-gradient(135deg,#FF6B00,#FFD700)",borderRadius:20,padding:"2px 10px",fontSize:10,fontWeight:800,color:"#000",whiteSpace:"nowrap"}}>🔥 الأكثر طلباً</div>}
-                  <div style={{fontSize:20}}>💎</div>
-                  <div style={{fontSize:16,fontWeight:900,color:ffPkg?.id===pkg.id?"#FFD700":"#fff"}}>{pkg.gems}</div>
-                  <div style={{fontSize:10,color:"#8892A4"}}>جوهرة{pkg.bonus>0&&<span style={{color:"#26A17B"}}> +{pkg.bonus}</span>}</div>
-                  <div style={{fontSize:15,fontWeight:900,color:"#FF6B00",marginTop:4}}>{pkg.price} TND</div>
-                </div>
-              ))}
-            </div>
-            <label style={{fontSize:13,color:"#8892A4",display:"block",marginBottom:6}}>ID اللاعب</label>
-            <input placeholder="Free Fire ID..." style={{...inp,direction:"ltr",textAlign:"left"}} value={playerId} onChange={e=>setPlayerId(e.target.value)}/>
-          </>}
-          {service==="sub"&&<>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:16}}>
-              {SUBSCRIPTIONS.map(sub=>(
-                <div key={sub.id} onClick={()=>setSelSub(sub)} style={{background:selSub?.id===sub.id?sub.bg:"rgba(255,255,255,0.03)",border:`2px solid ${selSub?.id===sub.id?sub.border:"rgba(255,255,255,0.08)"}`,borderRadius:12,padding:"14px 10px",textAlign:"center",cursor:"pointer"}}>
-                  <div style={{fontSize:26}}>{sub.icon}</div>
-                  <div style={{fontSize:12,fontWeight:800,color:selSub?.id===sub.id?sub.color:"#fff",margin:"4px 0"}}>{sub.name}</div>
-                  <div style={{fontSize:15,fontWeight:900,color:selSub?.id===sub.id?sub.color:"#8892A4"}}>{sub.price} TND</div>
-                </div>
-              ))}
-            </div>
-            <label style={{fontSize:13,color:"#8892A4",display:"block",marginBottom:6}}>البريد الإلكتروني</label>
-            <input type="email" placeholder="example@email.com" style={{...inp,direction:"ltr",textAlign:"left"}} value={email} onChange={e=>setEmail(e.target.value)}/>
-          </>}
-          <label style={{fontSize:13,color:"#8892A4",display:"block",marginBottom:6}}>اسمك</label>
-          <input placeholder="الاسم الكامل" style={inp} value={name} onChange={e=>setName(e.target.value)}/>
-          <label style={{fontSize:13,color:"#8892A4",display:"block",marginBottom:8}}>💳 طريقة الدفع</label>
-          <div style={{display:"flex",gap:8,marginBottom:18}}>
-            {METHODS.map(m=>(
-              <div key={m.id} onClick={()=>setMethod(m.id)} style={{flex:1,background:method===m.id?m.bg:"rgba(255,255,255,0.03)",border:`1px solid ${method===m.id?m.border:"rgba(255,255,255,0.08)"}`,borderRadius:12,padding:"12px 6px",textAlign:"center",cursor:"pointer"}}>
-                <div style={{fontSize:20}}>{m.icon}</div>
-                <div style={{fontSize:11,fontWeight:700,color:method===m.id?m.color:"#8892A4",marginTop:3}}>{m.label}</div>
-              </div>
-            ))}
-          </div>
-          <button onClick={handleOrder} style={btn(service==="ff"?"linear-gradient(135deg,#FFD700,#FF6B00)":service==="sub"&&selSub?`linear-gradient(135deg,${selSub.color},${selSub.color}99)`:undefined)}>تأكيد الطلب ✅</button>
-        </div>
+    <div style="font-size:14px;font-weight:800;color:#8892A4;text-align:center;margin-bottom:12px">💳 طرق الدفع</div>
+    <div class="pay-methods">
+      <div class="pay-card" style="background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.4)"><div style="font-size:22px">📱</div><div style="font-size:12px;font-weight:700;color:#FF6B00;margin-top:4px">D17</div></div>
+      <div class="pay-card" style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.4)"><div style="font-size:22px">💜</div><div style="font-size:12px;font-weight:700;color:#7C3AED;margin-top:4px">Flouci</div></div>
+      <div class="pay-card" style="background:rgba(5,150,105,0.12);border:1px solid rgba(5,150,105,0.4)"><div style="font-size:22px">💚</div><div style="font-size:12px;font-weight:700;color:#059669;margin-top:4px">IZI Wallet</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER -->
+<div id="page-order" class="page">
+  <nav class="nav">
+    <span class="logo">🎮 TN Shop</span>
+    <button onclick="showPage('home')" style="background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 14px;color:#8892A4;cursor:pointer;font-size:13px">← رجوع</button>
+  </nav>
+  <div class="wrap-sm">
+    <div class="card">
+      <h2 id="order-title" style="margin-bottom:18px;font-size:19px"></h2>
+      <div id="order-form"></div>
+      <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">اسمك</label>
+      <input class="inp" id="inp-name" placeholder="الاسم الكامل"/>
+      <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:8px">💳 طريقة الدفع</label>
+      <div class="method-grid">
+        <div class="method-card" id="m-D17" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selectMethod('D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></div>
+        <div class="method-card" id="m-Flouci" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selectMethod('Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></div>
+        <div class="method-card" id="m-IZI" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selectMethod('IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></div>
       </div>
-    );
-  }
+      <button class="btn" id="order-btn" onclick="submitOrder()">تأكيد الطلب ✅</button>
+    </div>
+  </div>
+</div>
 
-  if(page==="admin") return (
-    <div style={{minHeight:"100vh"}}>
-      {!adminIn?(
-        <div style={{maxWidth:360,margin:"80px auto",padding:"0 14px"}}>
-          <div style={{background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:20,padding:28,textAlign:"center"}}>
-            <div style={{fontSize:36,marginBottom:14}}>🔐</div>
-            <h2 style={{marginBottom:20,fontSize:19}}>لوحة التحكم</h2>
-            <input type="password" place
+<!-- CONFIRM -->
+<div id="page-confirm" class="page">
+  <div class="wrap-sm" style="padding-top:30px">
+    <div class="card" style="border-color:rgba(38,161,123,0.3);text-align:center">
+      <div style="font-size:52px">✅</div>
+      <h2 style="margin:12px 0 6px;font-size:20px">تم استلام طلبك!</h2>
+      <p id="conf-id" style="color:#8892A4;font-size:13px;margin-bottom:20px"></p>
+      <div id="conf-payment" style="border-radius:13px;padding:16px;margin-bottom:16px">
+        <div style="font-size:12px;color:#8892A4;margin-bottom:6px" id="conf-method-label"></div>
+        <div id="conf-phone" style="font-size:30px;font-weight:900;letter-spacing:2px"></div>
+        <div style="font-size:13px;color:#8892A4;margin-top:8px">المبلغ: <strong id="conf-amount" style="color:#fff;font-size:16px"></strong></div>
+      </div>
+      <div style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);border-radius:12px;padding:14px;margin-bottom:16px">
+        <div style="font-size:13px;color:#25D366;font-weight:700;margin-bottom:6px">📲 الخطوة التالية</div>
+        <div style="font-size:13px;color:#8892A4;margin-bottom:10px">أرسل لقطة شاشة التحويل عبر واتساب وسنرسل لك الخدمة خلال 5-10 دقائق</div>
+        <button class="btn btn-wa" id="wa-btn" onclick="openWA()">💬 فتح واتساب</button>
+      </div>
+      <button class="btn btn-ghost" onclick="showPage('home')">طلب جديد</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="page-admin" class="page">
+  <nav class="nav">
+    <span class="logo">📊 الإدارة</span>
+    <button onclick="showPage('home')" style="background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 14px;color:#8892A4;cursor:pointer;font-size:13px">خروج</button>
+  </nav>
+  <div id="admin-login" style="max-width:360px;margin:80px auto;padding:0 14px">
+    <div class="card" style="text-align:center">
+      <div style="font-size:36px;margin-bottom:14px">🔐</div>
+      <h2 style="margin-bottom:20px;font-size:19px">لوحة التحكم</h2>
+      <input class="inp" id="admin-pass" type="password" placeholder="كلمة المرور" style="text-align:center"/>
+      <button class="btn" onclick="adminLogin()">دخول</button>
+    </div>
+  </div>
+  <div id="admin-dashboard" style="display:none;max-width:800px;margin:0 auto;padding:28px 14px">
+    <div class="stat-grid">
+      <div class="stat-card"><div id="stat-all" style="font-size:24px;font-weight:900;color:#26A17B">0</div><div style="font-size:11px;color:#8892A4;margin-top:4px">الكل</div></div>
+      <div class="stat-card"><div id="stat-usdt" style="font-size:24px;font-weight:900;color:#4ECBA0">0</div><div style="font-size:11px;color:#8892A4;margin-top:4px">USDT</div></div>
+      <div class="stat-card"><div id="stat-other" style="font-size:24px;font-weight:900;color:#FFD700">0</div><div style="font-size:11px;color:#8892A4;margin-top:4px">FF + اشتراكات</div></div>
+    </div>
+    <div class="orders-table">
+      <div style="padding:13px 18px;border-bottom:1px solid rgba(255,255,255,0.06);font-weight:700;font-size:14px">الطلبات الواردة</div>
+      <div id="orders-list"><div style="text-align:center;padding:36px;color:#8892A4">لا توجد طلبات بعد</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WA = "21696530971";
+const PHONES = {D17:"96 530 971", Flouci:"51 186 982", IZI:"96 530 971"};
+const METHOD_STYLES = {
+  D17:{bg:"rgba(255,107,0,0.12)",border:"rgba(255,107,0,0.4)",color:"#FF6B00"},
+  Flouci:{bg:"rgba(124,58,237,0.12)",border:"rgba(124,58,237,0.4)",color:"#7C3AED"},
+  IZI:{bg:"rgba(5,150,105,0.12)",border:"rgba(5,150,105,0.4)",color:"#059669"}
+};
+
+let currentService = null;
+let currentMethod = null;
+let currentOrder = null;
+let orders = [];
+let ffPkg = null;
+let selSub = null;
+let stock = 5000;
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showNotif(msg, type) {
+  const n = document.getElementById('notif');
+  n.textContent = msg;
+  n.style.background = type==='error'?'#450a0a':'#022c22';
+  n.style.border = '1px solid '+(type==='error'?'#ef4444':'#26A17B');
+  n.style.color = '#fff';
+  n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'), 3000);
+}
+
+function selectMethod(m) {
+  currentMethod = m;
+  ['D17','Flouci','IZI'].forEach(x => {
+    const el = document.getElementById('m-'+x);
+    if(x===m) {
+      el.style.background = METHOD_STYLES[x].bg;
+      el.style.border = '1px solid '+METHOD_STYLES[x].border;
+      el.querySelector('div:last-child').style.color = METHOD_STYLES[x].color;
+    } else {
+      el.style.background = 'rgba(255,255,255,0.03)';
+      el.style.border = '1px solid rgba(255,255,255,0.08)';
+      el.querySelector('div:last-child').style.color = '#8892A4';
+    }
+  });
+}
+
+function startOrder(service) {
+  currentService = service;
+  currentMethod = null;
+  ffPkg = null;
+  ['D17','Flouci','IZI'].forEach(x=>{
+    document.getElementById('m-'+x).style.background='rgba(255,255,255,0.03)';
+    document.getElementById('m-'+x).style.border='1px solid rgba(255,255,255,0.08)';
+  });
+  document.getElementById('inp-name').value='';
+
+  if(service==='usdt') {
+    document.getElementById('order-title').textContent='₮ شراء USDT';
+    document.getElementById('order-form').innerHTML=`
+      <div style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.2);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;margin-bottom:16px">
+        <span style="color:#8892A4;font-size:13px">السعر الثابت</span>
+        <span style="color:#26A17B;font-weight:900">4.7 TND / USDT</span>
+      </div>
+      <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">الكمية (USDT)</label>
+      <input class="inp" id="inp-amount" type="number" placeholder="100" oninput="calcTND()" style="font-size:18px;font-weight:700"/>
+      <div id="tnd-display" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between">
+        <span style="color:#8892A4;font-size:13px">ستدفع</span>
+        <span id="tnd-val" style="color:#444;font-weight:900;font-size:20px">0.00 TND</span>
+      </div>
+      <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">الشبكة</label>
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <button onclick="setNet('TRC20')" id="net-TRC20" style="flex:1;background:rgba(38,161,123,0.2);border:1px solid #26A17B;border-radius:8px;padding:8px;color:#26A17B;font-size:12px;font-weight:700;cursor:pointer">TRC20</button>
+        <button onclick="setNet('BEP20')" id="net-BEP20" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;color:#8892A4;font-size:12px;font-weight:700;cursor:pointer">BEP20</button>
+        <button onclick="setNet('ERC20')" id="net-ERC20" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;color:#8892A4;font-size:12px;font-weight:700;cursor:pointer">ERC20</button>
+      </div>
+      <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">عنوان المحفظة</label>
+      <input class="inp" id="inp-wallet" placeholder="عنوان المحفظة..." style="direction:ltr;text-align:left;font-size:13px"/>
+    `;
+    document.getElementById('order-btn').className='btn';
+  } else {
+    startOrder_ff();
+  }
+  showPage('order');
+}
+
+function startSub(id, name, icon, price, color) {
+  currentService='sub';
+  currentMethod=null;
+  selSub={id,name,icon,price,color};
+  ['D17','Flouci','IZI'].forEach(x=>{
+    document.getElementById('m-'+x).style.background='rgba(255,255,255,0.03)';
+    document.getElementById('m-'+x).style.border='1px solid rgba(255,255,255,0.08)';
+  });
+  document.getElementById('inp-name').value='';
+  document.getElementById('order-title').textContent=icon+' اشتراك '+name;
+  document.getElementById('order-form').innerHTML=`
+    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:14px;margin-bottom:16px;display:flex;justify-content:space-between">
+      <span style="color:#8892A4">الاشتراك</span>
+      <span style="color:${color};font-weight:900">${icon} ${name} — ${price} TND/شهر</span>
+    </div>
+    <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">البريد الإلكتروني</label>
+    <input class="inp" id="inp-email" type="email" placeholder="example@email.com" style="direction:ltr;text-align:left"/>
+  `;
+  document.getElementById('order-btn').style.background=`linear-gradient(135deg,${color},${color}99)`;
+  showPage('order');
+}
+
+function startOrder_ff() {
+  currentService='ff';
+  document.getElementById('order-title').textContent='💎 شحن Free Fire';
+  const pkgs=[{id:1,gems:100,price:5,bonus:0,popular:false},{id:2,gems:310,price:14,bonus:10,popular:false},{id:3,gems:520,price:23,bonus:20,popular:true},{id:4,gems:1060,price:45,bonus:50,popular:false},{id:5,gems:2120,price:90,bonus:100,popular:false}];
+  let html='<div class="pkg-grid">';
+  pkgs.forEach(p=>{
+    html+=`

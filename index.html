@@ -6,109 +6,112 @@
 <title>TN Shop</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction:rtl}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction:rtl;min-height:100vh}
+button{font-family:'Tajawal',sans-serif;cursor:pointer;border:none}
+input{font-family:'Tajawal',sans-serif}
 .nav{background:rgba(8,13,26,0.97);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:58px;position:sticky;top:0;z-index:99}
 .logo{font-size:18px;font-weight:900;color:#26A17B}
 .wrap{max-width:700px;margin:0 auto;padding:32px 14px}
 .wrap-sm{max-width:480px;margin:0 auto;padding:20px 14px}
 .card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:22px}
-.inp{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 14px;color:#fff;font-size:15px;margin-bottom:14px;font-family:'Tajawal',sans-serif;display:block}
+.inp{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 14px;color:#fff;font-size:15px;margin-bottom:14px;display:block}
 .inp:focus{outline:none;border-color:#26A17B}
-.btn{background:linear-gradient(135deg,#26A17B,#0e5c42);color:#fff;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:800;width:100%;cursor:pointer;margin-bottom:10px;font-family:'Tajawal',sans-serif;display:block}
+.btn{background:linear-gradient(135deg,#26A17B,#0e5c42);color:#fff;border-radius:14px;padding:15px;font-size:16px;font-weight:800;width:100%;display:block;margin-bottom:10px;text-align:center}
 .btn-ghost{background:rgba(255,255,255,0.06);color:#E8EDF5}
 .btn-ff{background:linear-gradient(135deg,#FFD700,#FF6B00)}
 .btn-wa{background:linear-gradient(135deg,#25D366,#128C7E)}
-.btn-sm{background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:6px 14px;color:#8892A4;cursor:pointer;font-size:13px;font-family:'Tajawal',sans-serif}
+.btn-sm{background:transparent;border:1px solid rgba(255,255,255,0.15)!important;border-radius:8px;padding:7px 16px;color:#8892A4;font-size:13px}
 .page{display:none}
 .page.show{display:block}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.scard{border-radius:18px;padding:24px 14px;cursor:pointer;text-align:center}
-.subcard{border-radius:14px;padding:16px 10px;cursor:pointer;text-align:center}
-.mcard{flex:1;border-radius:12px;padding:12px 6px;text-align:center;cursor:pointer}
-.pcard{border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;position:relative}
-.paycard{border-radius:12px;padding:12px;text-align:center}
-.notif{position:fixed;top:16px;left:50%;transform:translateX(-50%);border-radius:10px;padding:12px 22px;z-index:9999;font-weight:700;font-size:14px;display:none;white-space:nowrap}
+.svc-btn{border-radius:18px;padding:24px 14px;width:100%;text-align:center;display:block}
+.sub-btn{border-radius:14px;padding:16px 10px;width:100%;text-align:center;display:block}
+.method-btn{flex:1;border-radius:12px;padding:12px 6px;text-align:center}
+.pkg-btn{border-radius:12px;padding:14px 10px;width:100%;text-align:center;position:relative}
+.net-btn{flex:1;border-radius:8px;padding:8px;font-size:12px;font-weight:700}
+.notif{position:fixed;top:20px;left:50%;transform:translateX(-50%);border-radius:10px;padding:12px 22px;z-index:9999;font-weight:700;font-size:14px;display:none;white-space:nowrap;min-width:200px;text-align:center}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.dot{width:8px;height:8px;border-radius:50%;background:#26A17B;display:inline-block;animation:pulse 2s infinite}
+.dot{width:8px;height:8px;border-radius:50%;background:#26A17B;display:inline-block;animation:pulse 2s infinite;vertical-align:middle}
+label{font-size:13px;color:#8892A4;display:block;margin-bottom:6px}
 </style>
 </head>
 <body>
 
 <div id="notif" class="notif"></div>
 
-<!-- ======== HOME ======== -->
+<!-- HOME -->
 <div id="home" class="page show">
 <nav class="nav">
   <span class="logo">🎮 TN Shop</span>
   <button class="btn-sm" onclick="go('admin')">⚙ إدارة</button>
 </nav>
 <div class="wrap">
-  <div style="text-align:center;margin-bottom:32px">
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.25);border-radius:50px;padding:8px 20px;margin-bottom:18px">
+  <div style="text-align:center;margin-bottom:28px">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.25);border-radius:50px;padding:8px 20px;margin-bottom:16px">
       <span class="dot"></span>
       <span style="color:#26A17B;font-weight:700;font-size:13px">متاح الآن للشراء</span>
     </div>
-    <h1 style="font-size:clamp(22px,5vw,40px);font-weight:900;line-height:1.3;margin-bottom:10px">
+    <h1 style="font-size:clamp(20px,5vw,38px);font-weight:900;line-height:1.3;margin-bottom:8px">
       متجر <span style="color:#26A17B">USDT</span> و <span style="color:#FFD700">الألعاب</span> و <span style="color:#FF4E8B">الاشتراكات</span>
     </h1>
     <p style="color:#8892A4;font-size:14px">دفع آمن عبر D17 · Flouci · IZI Wallet</p>
   </div>
 
-  <div class="grid2" style="margin-bottom:14px">
-    <div class="scard" style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.3)" onclick="goUSDT()">
-      <div style="font-size:40px">₮</div>
-      <div style="font-size:17px;font-weight:900;color:#26A17B;margin:8px 0 4px">شراء USDT</div>
-      <div style="font-size:20px;font-weight:900;color:#4ECBA0">4.7 <span style="font-size:12px;color:#8892A4">TND/USDT</span></div>
-    </div>
-    <div class="scard" style="background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3)" onclick="goFF()">
-      <div style="font-size:40px">💎</div>
-      <div style="font-size:17px;font-weight:900;color:#FFD700;margin:8px 0 4px">جواهر FF</div>
-      <div style="font-size:20px;font-weight:900;color:#FF6B00">من 5 <span style="font-size:12px;color:#8892A4">دينار</span></div>
-    </div>
+  <div class="grid2" style="margin-bottom:12px">
+    <button class="svc-btn" style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.3)" onclick="go('usdt')">
+      <div style="font-size:38px">₮</div>
+      <div style="font-size:16px;font-weight:900;color:#26A17B;margin:8px 0 4px">شراء USDT</div>
+      <div style="font-size:19px;font-weight:900;color:#4ECBA0">4.7 <span style="font-size:11px;color:#8892A4">TND/USDT</span></div>
+    </button>
+    <button class="svc-btn" style="background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3)" onclick="go('ff')">
+      <div style="font-size:38px">💎</div>
+      <div style="font-size:16px;font-weight:900;color:#FFD700;margin:8px 0 4px">جواهر FF</div>
+      <div style="font-size:19px;font-weight:900;color:#FF6B00">من 5 <span style="font-size:11px;color:#8892A4">دينار</span></div>
+    </button>
   </div>
 
-  <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:16px;margin-bottom:20px">
-    <div style="font-size:14px;font-weight:800;color:#8892A4;margin-bottom:12px;text-align:center">🔑 الاشتراكات الشهرية</div>
+  <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:14px;margin-bottom:18px">
+    <div style="font-size:13px;font-weight:800;color:#8892A4;margin-bottom:10px;text-align:center">🔑 الاشتراكات الشهرية</div>
     <div class="grid2">
-      <div class="subcard" style="background:rgba(255,0,0,0.10);border:1px solid rgba(255,0,0,0.3)" onclick="goSub('youtube','YouTube Premium','▶️',55,'#FF0000')">
-        <div style="font-size:28px;margin-bottom:4px">▶️</div>
-        <div style="font-size:12px;font-weight:800;color:#FF0000;margin-bottom:4px">YouTube Premium</div>
-        <div style="font-size:11px;color:#8892A4;margin-bottom:4px">بدون إعلانات</div>
-        <div style="font-size:16px;font-weight:900;color:#fff">55 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
-      </div>
-      <div class="subcard" style="background:rgba(255,78,139,0.12);border:1px solid rgba(255,78,139,0.35)" onclick="goSub('cupcat','Cupcat','🎵',18,'#FF4E8B')">
-        <div style="font-size:28px;margin-bottom:4px">🎵</div>
-        <div style="font-size:12px;font-weight:800;color:#FF4E8B;margin-bottom:4px">Cupcat</div>
-        <div style="font-size:11px;color:#8892A4;margin-bottom:4px">موسيقى بدون انقطاع</div>
-        <div style="font-size:16px;font-weight:900;color:#fff">18 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
-      </div>
-      <div class="subcard" style="background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.35)" onclick="goSub('chatgpt','ChatGPT Plus','🤖',80,'#10A37F')">
-        <div style="font-size:28px;margin-bottom:4px">🤖</div>
-        <div style="font-size:12px;font-weight:800;color:#10A37F;margin-bottom:4px">ChatGPT Plus</div>
-        <div style="font-size:11px;color:#8892A4;margin-bottom:4px">GPT-4 بدون حدود</div>
-        <div style="font-size:16px;font-weight:900;color:#fff">80 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
-      </div>
-      <div class="subcard" style="background:rgba(204,120,92,0.12);border:1px solid rgba(204,120,92,0.35)" onclick="goSub('claude','Claude Pro','🧠',80,'#CC785C')">
-        <div style="font-size:28px;margin-bottom:4px">🧠</div>
-        <div style="font-size:12px;font-weight:800;color:#CC785C;margin-bottom:4px">Claude Pro</div>
-        <div style="font-size:11px;color:#8892A4;margin-bottom:4px">أقوى مساعد AI</div>
-        <div style="font-size:16px;font-weight:900;color:#fff">80 <span style="font-size:11px;color:#8892A4">TND/شهر</span></div>
-      </div>
+      <button class="sub-btn" style="background:rgba(255,0,0,0.10);border:1px solid rgba(255,0,0,0.3)" onclick="goSub('youtube','YouTube Premium','▶️',55,'#FF0000')">
+        <div style="font-size:26px;margin-bottom:4px">▶️</div>
+        <div style="font-size:12px;font-weight:800;color:#FF0000;margin-bottom:3px">YouTube Premium</div>
+        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">بدون إعلانات</div>
+        <div style="font-size:15px;font-weight:900;color:#fff">55 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+      </button>
+      <button class="sub-btn" style="background:rgba(255,78,139,0.12);border:1px solid rgba(255,78,139,0.35)" onclick="goSub('cupcat','Cupcat','🎵',18,'#FF4E8B')">
+        <div style="font-size:26px;margin-bottom:4px">🎵</div>
+        <div style="font-size:12px;font-weight:800;color:#FF4E8B;margin-bottom:3px">Cupcat</div>
+        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">موسيقى بدون انقطاع</div>
+        <div style="font-size:15px;font-weight:900;color:#fff">18 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+      </button>
+      <button class="sub-btn" style="background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.35)" onclick="goSub('chatgpt','ChatGPT Plus','🤖',80,'#10A37F')">
+        <div style="font-size:26px;margin-bottom:4px">🤖</div>
+        <div style="font-size:12px;font-weight:800;color:#10A37F;margin-bottom:3px">ChatGPT Plus</div>
+        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">GPT-4 بدون حدود</div>
+        <div style="font-size:15px;font-weight:900;color:#fff">80 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+      </button>
+      <button class="sub-btn" style="background:rgba(204,120,92,0.12);border:1px solid rgba(204,120,92,0.35)" onclick="goSub('claude','Claude Pro','🧠',80,'#CC785C')">
+        <div style="font-size:26px;margin-bottom:4px">🧠</div>
+        <div style="font-size:12px;font-weight:800;color:#CC785C;margin-bottom:3px">Claude Pro</div>
+        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">أقوى مساعد AI</div>
+        <div style="font-size:15px;font-weight:900;color:#fff">80 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+      </button>
     </div>
   </div>
 
-  <div style="font-size:14px;font-weight:800;color:#8892A4;text-align:center;margin-bottom:12px">💳 طرق الدفع</div>
+  <div style="font-size:13px;font-weight:800;color:#8892A4;text-align:center;margin-bottom:10px">💳 طرق الدفع</div>
   <div class="grid3">
-    <div class="paycard" style="background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.4)"><div style="font-size:22px">📱</div><div style="font-size:12px;font-weight:700;color:#FF6B00;margin-top:4px">D17</div></div>
-    <div class="paycard" style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.4)"><div style="font-size:22px">💜</div><div style="font-size:12px;font-weight:700;color:#7C3AED;margin-top:4px">Flouci</div></div>
-    <div class="paycard" style="background:rgba(5,150,105,0.12);border:1px solid rgba(5,150,105,0.4)"><div style="font-size:22px">💚</div><div style="font-size:12px;font-weight:700;color:#059669;margin-top:4px">IZI Wallet</div></div>
+    <div style="background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.4);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px">📱</div><div style="font-size:12px;font-weight:700;color:#FF6B00;margin-top:3px">D17</div></div>
+    <div style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.4);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px">💜</div><div style="font-size:12px;font-weight:700;color:#7C3AED;margin-top:3px">Flouci</div></div>
+    <div style="background:rgba(5,150,105,0.12);border:1px solid rgba(5,150,105,0.4);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px">💚</div><div style="font-size:12px;font-weight:700;color:#059669;margin-top:3px">IZI Wallet</div></div>
   </div>
 </div>
 </div>
 
-<!-- ======== USDT ======== -->
+<!-- USDT -->
 <div id="usdt" class="page">
 <nav class="nav">
   <span class="logo">₮ شراء USDT</span>
@@ -116,38 +119,38 @@ body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction
 </nav>
 <div class="wrap-sm">
 <div class="card">
-  <div style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.2);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;margin-bottom:16px">
+  <div style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.2);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
     <span style="color:#8892A4;font-size:13px">السعر الثابت</span>
-    <span style="color:#26A17B;font-weight:900">4.7 TND / USDT</span>
+    <span style="color:#26A17B;font-weight:900;font-size:16px">4.7 TND / USDT</span>
   </div>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">الكمية (USDT)</label>
-  <input class="inp" id="u-amount" type="number" placeholder="100" oninput="calcTND()"/>
-  <div id="u-tnd" style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between">
+  <label>الكمية (USDT)</label>
+  <input class="inp" id="u-amt" type="number" placeholder="100" oninput="calcT()"/>
+  <div style="background:rgba(38,161,123,0.08);border:1px solid rgba(38,161,123,0.2);border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">
     <span style="color:#8892A4;font-size:13px">ستدفع</span>
-    <span id="u-tnd-val" style="color:#444;font-weight:900;font-size:20px">0.00 TND</span>
+    <span id="u-tnd" style="color:#26A17B;font-weight:900;font-size:20px">0.00 TND</span>
   </div>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">الشبكة</label>
+  <label>الشبكة</label>
   <div style="display:flex;gap:8px;margin-bottom:14px">
-    <button id="n-TRC20" onclick="setNet('TRC20')" style="flex:1;background:rgba(38,161,123,0.2);border:1px solid #26A17B;border-radius:8px;padding:8px;color:#26A17B;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif">TRC20</button>
-    <button id="n-BEP20" onclick="setNet('BEP20')" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;color:#8892A4;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif">BEP20</button>
-    <button id="n-ERC20" onclick="setNet('ERC20')" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:8px;color:#8892A4;font-size:12px;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif">ERC20</button>
+    <button id="n0" class="net-btn" style="flex:1;background:rgba(38,161,123,0.2);border:1px solid #26A17B;color:#26A17B" onclick="setN('TRC20',0)">TRC20</button>
+    <button id="n1" class="net-btn" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#8892A4" onclick="setN('BEP20',1)">BEP20</button>
+    <button id="n2" class="net-btn" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#8892A4" onclick="setN('ERC20',2)">ERC20</button>
   </div>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">عنوان المحفظة</label>
-  <input class="inp" id="u-wallet" placeholder="عنوان المحفظة..." style="direction:ltr;text-align:left;font-size:13px"/>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">اسمك</label>
+  <label>عنوان المحفظة</label>
+  <input class="inp" id="u-wal" placeholder="عنوان المحفظة..." style="direction:ltr;text-align:left;font-size:13px"/>
+  <label>اسمك</label>
   <input class="inp" id="u-name" placeholder="الاسم الكامل"/>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:8px">💳 طريقة الدفع</label>
-  <div style="display:flex;gap:8px;margin-bottom:18px" id="u-methods">
-    <div class="mcard" id="um-D17" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('u','D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></div>
-    <div class="mcard" id="um-Flouci" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('u','Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></div>
-    <div class="mcard" id="um-IZI" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('u','IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></div>
+  <label>طريقة الدفع</label>
+  <div style="display:flex;gap:8px;margin-bottom:18px">
+    <button id="um0" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('u',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></button>
+    <button id="um1" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('u',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></button>
+    <button id="um2" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('u',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></button>
   </div>
-  <button class="btn" onclick="submitUSDT()">تأكيد الطلب ✅</button>
+  <button class="btn" onclick="subU()">تأكيد الطلب ✅</button>
 </div>
 </div>
 </div>
 
-<!-- ======== FF ======== -->
+<!-- FF -->
 <div id="ff" class="page">
 <nav class="nav">
   <span class="logo">💎 Free Fire</span>
@@ -155,72 +158,72 @@ body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction
 </nav>
 <div class="wrap-sm">
 <div class="card">
-  <h2 style="margin-bottom:16px;font-size:18px">اختر الباقة</h2>
+  <label style="margin-bottom:10px;font-size:15px;font-weight:800;color:#E8EDF5">اختر الباقة</label>
   <div class="grid2" style="margin-bottom:16px">
-    <div class="pcard" id="p1" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="selPkg(1,100,5)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900;color:#fff">100</div><div style="font-size:10px;color:#8892A4">جوهرة</div><div style="font-size:15px;font-weight:900;color:#FF6B00;margin-top:4px">5 TND</div></div>
-    <div class="pcard" id="p2" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="selPkg(2,310,14)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900;color:#fff">310</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+10</span></div><div style="font-size:15px;font-weight:900;color:#FF6B00;margin-top:4px">14 TND</div></div>
-    <div class="pcard" id="p3" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08);position:relative" onclick="selPkg(3,520,23)">
-      <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B00,#FFD700);border-radius:20px;padding:2px 10px;font-size:10px;font-weight:800;color:#000;white-space:nowrap">🔥 الأكثر طلباً</div>
-      <div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900;color:#fff">520</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+20</span></div><div style="font-size:15px;font-weight:900;color:#FF6B00;margin-top:4px">23 TND</div>
-    </div>
-    <div class="pcard" id="p4" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="selPkg(4,1060,45)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900;color:#fff">1060</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+50</span></div><div style="font-size:15px;font-weight:900;color:#FF6B00;margin-top:4px">45 TND</div></div>
-    <div class="pcard" id="p5" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="selPkg(5,2120,90)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900;color:#fff">2120</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+100</span></div><div style="font-size:15px;font-weight:900;color:#FF6B00;margin-top:4px">90 TND</div></div>
+    <button id="p0" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(0,100,5)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">100</div><div style="font-size:10px;color:#8892A4">جوهرة</div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">5 TND</div></button>
+    <button id="p1" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(1,310,14)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">310</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+10</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">14 TND</div></button>
+    <button id="p2" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(2,520,23)">
+      <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B00,#FFD700);border-radius:20px;padding:2px 8px;font-size:9px;font-weight:800;color:#000;white-space:nowrap">🔥 الأكثر</div>
+      <div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">520</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+20</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">23 TND</div>
+    </button>
+    <button id="p3" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(3,1060,45)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">1060</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+50</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">45 TND</div></button>
+    <button id="p4" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(4,2120,90)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">2120</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+100</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">90 TND</div></button>
   </div>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">ID اللاعب</label>
+  <label>ID اللاعب</label>
   <input class="inp" id="f-id" placeholder="Free Fire ID..." style="direction:ltr;text-align:left"/>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">اسمك</label>
+  <label>اسمك</label>
   <input class="inp" id="f-name" placeholder="الاسم الكامل"/>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:8px">💳 طريقة الدفع</label>
+  <label>طريقة الدفع</label>
   <div style="display:flex;gap:8px;margin-bottom:18px">
-    <div class="mcard" id="fm-D17" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('f','D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></div>
-    <div class="mcard" id="fm-Flouci" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('f','Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></div>
-    <div class="mcard" id="fm-IZI" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('f','IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></div>
+    <button id="fm0" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('f',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></button>
+    <button id="fm1" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('f',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></button>
+    <button id="fm2" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('f',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></button>
   </div>
-  <button class="btn btn-ff" onclick="submitFF()">تأكيد الطلب ✅</button>
+  <button class="btn btn-ff" onclick="subF()">تأكيد الطلب ✅</button>
 </div>
 </div>
 </div>
 
-<!-- ======== SUB ======== -->
+<!-- SUB -->
 <div id="sub" class="page">
 <nav class="nav">
-  <span class="logo" id="sub-logo">🔑 اشتراك</span>
+  <span id="sub-logo" class="logo">🔑 اشتراك</span>
   <button class="btn-sm" onclick="go('home')">← رجوع</button>
 </nav>
 <div class="wrap-sm">
 <div class="card">
-  <div id="sub-info" style="border-radius:12px;padding:14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">
+  <div id="sub-box" style="border-radius:12px;padding:14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1)">
     <span style="color:#8892A4">الاشتراك</span>
-    <span id="sub-detail" style="font-weight:900"></span>
+    <span id="sub-detail" style="font-weight:900;font-size:15px"></span>
   </div>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">البريد الإلكتروني</label>
+  <label>البريد الإلكتروني</label>
   <input class="inp" id="s-email" type="email" placeholder="example@email.com" style="direction:ltr;text-align:left"/>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:6px">اسمك</label>
+  <label>اسمك</label>
   <input class="inp" id="s-name" placeholder="الاسم الكامل"/>
-  <label style="font-size:13px;color:#8892A4;display:block;margin-bottom:8px">💳 طريقة الدفع</label>
+  <label>طريقة الدفع</label>
   <div style="display:flex;gap:8px;margin-bottom:18px">
-    <div class="mcard" id="sm-D17" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('s','D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></div>
-    <div class="mcard" id="sm-Flouci" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('s','Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></div>
-    <div class="mcard" id="sm-IZI" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="selMethod('s','IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></div>
+    <button id="sm0" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('s',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></button>
+    <button id="sm1" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('s',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></button>
+    <button id="sm2" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('s',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></button>
   </div>
-  <button id="sub-btn" class="btn" onclick="submitSub()">تأكيد الطلب ✅</button>
+  <button id="sub-btn" class="btn" onclick="subS()">تأكيد الطلب ✅</button>
 </div>
 </div>
 </div>
 
-<!-- ======== CONFIRM ======== -->
+<!-- CONFIRM -->
 <div id="confirm" class="page">
 <div class="wrap-sm" style="padding-top:30px">
 <div class="card" style="border-color:rgba(38,161,123,0.3);text-align:center">
-  <div style="font-size:52px">✅</div>
-  <h2 style="margin:12px 0 6px;font-size:20px">تم استلام طلبك!</h2>
+  <div style="font-size:50px;margin-bottom:10px">✅</div>
+  <h2 style="font-size:20px;margin-bottom:6px">تم استلام طلبك!</h2>
   <p id="c-id" style="color:#8892A4;font-size:13px;margin-bottom:20px"></p>
-  <div id="c-pay" style="border-radius:13px;padding:16px;margin-bottom:16px">
-    <div id="c-method-lbl" style="font-size:12px;color:#8892A4;margin-bottom:6px"></div>
-    <div id="c-phone" style="font-size:30px;font-weight:900;letter-spacing:2px"></div>
-    <div style="font-size:13px;color:#8892A4;margin-top:8px">المبلغ: <strong id="c-amount" style="color:#fff;font-size:16px"></strong></div>
+  <div id="c-pay" style="border-radius:13px;padding:16px;margin-bottom:14px">
+    <div id="c-lbl" style="font-size:12px;color:#8892A4;margin-bottom:6px"></div>
+    <div id="c-phone" style="font-size:28px;font-weight:900;letter-spacing:2px"></div>
+    <div style="font-size:13px;color:#8892A4;margin-top:8px">المبلغ: <strong id="c-amt" style="color:#fff;font-size:16px"></strong></div>
   </div>
-  <div style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);border-radius:12px;padding:14px;margin-bottom:16px">
+  <div style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);border-radius:12px;padding:14px;margin-bottom:14px">
     <div style="font-size:13px;color:#25D366;font-weight:700;margin-bottom:6px">📲 الخطوة التالية</div>
     <div style="font-size:13px;color:#8892A4;margin-bottom:10px">أرسل لقطة شاشة التحويل عبر واتساب وسنرسل لك الخدمة خلال 5-10 دقائق</div>
     <button class="btn btn-wa" onclick="openWA()">💬 فتح واتساب</button>
@@ -230,20 +233,24 @@ body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction
 </div>
 </div>
 
-<!-- ======== ADMIN ======== -->
+<!-- ADMIN -->
 <div id="admin" class="page">
 <nav class="nav">
   <span class="logo">📊 الإدارة</span>
   <button class="btn-sm" onclick="go('home')">خروج</button>
 </nav>
-<div id="a-login" style="max-width:360px;margin:80px auto;padding:0 14px">
+<div id="a-login" style="max-width:360px;margin:60px auto;padding:0 14px">
   <div class="card" style="text-align:center">
-    <div style="font-size:36px;margin-bottom:14px">🔐</div>
-    <h2 style="margin-bottom:20px;font-size:19px">لوحة التحكم</h2>
+    <div style="font-size:36px;margin-bottom:12px">🔐</div>
+    <h2 style="margin-bottom:18px;font-size:18px">لوحة التحكم</h2>
     <input class="inp" id="a-pass" type="password" placeholder="كلمة المرور" style="text-align:center"/>
-    <button class="btn" onclick="adminLogin()">دخول</button>
+    <button class="btn" onclick="aLogin()">دخول</button>
   </div>
 </div>
-<div id="a-dash" style="display:none;max-width:800px;margin:0 auto;padding:28px 14px">
-  <div class="grid3" style="margin-bottom:20px">
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:16px;text-align:center"><div id="a-all" style="font-size:24px;font-weight:900;color:#26A17B">0</div><div style="font-size:11px;color:#8892A4;margin-top:4p
+<div id="a-dash" style="display:none;max-width:800px;margin:0 auto;padding:24px 14px">
+  <div class="grid3" style="margin-bottom:18px">
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:14px;text-align:center"><div id="a-all" style="font-size:22px;font-weight:900;color:#26A17B">0</div><div style="font-size:11px;color:#8892A4;margin-top:3px">الكل</div></div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:14px;text-align:center"><div id="a-usdt" style="font-size:22px;font-weight:900;color:#4ECBA0">0</div><div style="font-size:11px;color:#8892A4;margin-top:3px">USDT</div></div>
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:14px;text-align:center"><div id="a-oth" style="font-size:22px;font-weight:900;color:#FFD700">0</div><div style="font-size:11px;color:#8892A4;margin-top:3px">FF+اشتراكات</div></div>
+  </div>
+  <div style="background:rgba(255

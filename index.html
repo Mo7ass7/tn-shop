@@ -3,110 +3,193 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>TN Shop</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+<title>TN Shop · متجر تونس الرقمي</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:'Tajawal',sans-serif;background:#080D1A;color:#E8EDF5;direction:rtl;min-height:100vh}
+:root{
+  --bg:#070B14;--bg2:#0D1424;--card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);
+  --txt:#EAF0FA;--mut:#7E8AA0;--grn:#26A17B;--grn2:#4ECBA0;
+}
+body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--txt);direction:rtl;min-height:100vh;overflow-x:hidden}
 button{font-family:'Tajawal',sans-serif;cursor:pointer;border:none}
 input{font-family:'Tajawal',sans-serif}
-.nav{background:rgba(8,13,26,0.97);border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:58px;position:sticky;top:0;z-index:99}
-.logo{font-size:18px;font-weight:900;color:#26A17B}
-.wrap{max-width:700px;margin:0 auto;padding:32px 14px}
-.wrap-sm{max-width:480px;margin:0 auto;padding:20px 14px}
-.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:22px}
-.inp{width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px 14px;color:#fff;font-size:15px;margin-bottom:14px;display:block}
-.inp:focus{outline:none;border-color:#26A17B}
-.btn{background:linear-gradient(135deg,#26A17B,#0e5c42);color:#fff;border-radius:14px;padding:15px;font-size:16px;font-weight:800;width:100%;display:block;margin-bottom:10px;text-align:center}
-.btn-ghost{background:rgba(255,255,255,0.06);color:#E8EDF5}
-.btn-ff{background:linear-gradient(135deg,#FFD700,#FF6B00)}
-.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E)}
-.btn-sm{background:transparent;border:1px solid rgba(255,255,255,0.15)!important;border-radius:8px;padding:7px 16px;color:#8892A4;font-size:13px}
-.page{display:none}
+
+/* animated background */
+.bg-glow{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.bg-glow::before{content:'';position:absolute;top:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(38,161,123,0.18),transparent 70%);border-radius:50%;animation:float1 18s ease-in-out infinite}
+.bg-glow::after{content:'';position:absolute;bottom:-10%;left:-15%;width:600px;height:600px;background:radial-gradient(circle,rgba(124,58,237,0.12),transparent 70%);border-radius:50%;animation:float2 22s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,40px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-50px)}}
+
+.nav{position:sticky;top:0;z-index:99;background:rgba(7,11,20,0.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 18px;height:62px}
+.logo{font-size:20px;font-weight:900;display:flex;align-items:center;gap:8px}
+.logo-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--grn),#0e5c42);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 16px rgba(38,161,123,0.4)}
+.logo-txt{background:linear-gradient(135deg,var(--grn),var(--grn2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.btn-sm{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:8px 16px;color:var(--mut);font-size:13px;font-weight:700;transition:all .2s}
+.btn-sm:active{transform:scale(0.95)}
+
+.wrap{max-width:760px;margin:0 auto;padding:24px 14px;position:relative;z-index:1}
+.wrap-sm{max-width:500px;margin:0 auto;padding:20px 14px;position:relative;z-index:1}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:24px;backdrop-filter:blur(10px)}
+.inp{width:100%;background:rgba(255,255,255,0.05);border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;color:#fff;font-size:15px;margin-bottom:14px;display:block;transition:all .2s}
+.inp:focus{outline:none;border-color:var(--grn);box-shadow:0 0 0 3px rgba(38,161,123,0.12)}
+label{font-size:13px;color:var(--mut);display:block;margin-bottom:7px;font-weight:700}
+
+.btn{background:linear-gradient(135deg,var(--grn),#0e5c42);color:#fff;border-radius:16px;padding:16px;font-size:16px;font-weight:800;width:100%;display:block;margin-bottom:10px;text-align:center;transition:all .2s;box-shadow:0 6px 20px rgba(38,161,123,0.3)}
+.btn:active{transform:scale(0.98)}
+.btn-ghost{background:rgba(255,255,255,0.06);color:var(--txt);box-shadow:none}
+.btn-ff{background:linear-gradient(135deg,#FFD700,#FF6B00);box-shadow:0 6px 20px rgba(255,165,0,0.3)}
+.btn-wa{background:linear-gradient(135deg,#25D366,#128C7E);box-shadow:0 6px 20px rgba(37,211,102,0.3)}
+
+.page{display:none;animation:fadeUp .4s ease}
 .page.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.svc-btn{border-radius:18px;padding:24px 14px;width:100%;text-align:center;display:block}
-.sub-btn{border-radius:14px;padding:16px 10px;width:100%;text-align:center;display:block}
-.method-btn{flex:1;border-radius:12px;padding:12px 6px;text-align:center}
-.pkg-btn{border-radius:12px;padding:14px 10px;width:100%;text-align:center;position:relative}
-.net-btn{flex:1;border-radius:8px;padding:8px;font-size:12px;font-weight:700}
-.notif{position:fixed;top:20px;left:50%;transform:translateX(-50%);border-radius:10px;padding:12px 22px;z-index:9999;font-weight:700;font-size:14px;display:none;white-space:nowrap;min-width:200px;text-align:center}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
-.dot{width:8px;height:8px;border-radius:50%;background:#26A17B;display:inline-block;animation:pulse 2s infinite;vertical-align:middle}
-label{font-size:13px;color:#8892A4;display:block;margin-bottom:6px}
+
+/* hero */
+.hero{text-align:center;padding:32px 0 28px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.3);border-radius:50px;padding:9px 22px;margin-bottom:20px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--grn);box-shadow:0 0 10px var(--grn);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.hero h1{font-size:clamp(24px,6vw,42px);font-weight:900;line-height:1.25;margin-bottom:12px}
+.gr-g{background:linear-gradient(135deg,var(--grn),var(--grn2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gr-y{background:linear-gradient(135deg,#FFD700,#FF6B00);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.gr-p{background:linear-gradient(135deg,#FF4E8B,#C13584);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* service cards */
+.svc{border-radius:22px;padding:28px 16px;width:100%;text-align:center;position:relative;overflow:hidden;transition:all .3s}
+.svc:active{transform:scale(0.97)}
+.svc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);opacity:0;transition:opacity .3s}
+.svc:hover::before{opacity:1}
+.svc-icon{font-size:42px;margin-bottom:10px;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.3))}
+
+/* sub cards */
+.sub{border-radius:16px;padding:18px 12px;width:100%;text-align:center;transition:all .25s;position:relative;overflow:hidden}
+.sub:active{transform:scale(0.96)}
+
+.pay{border-radius:14px;padding:14px;text-align:center;transition:all .2s}
+
+/* pkg */
+.pkg{border-radius:14px;padding:16px 10px;width:100%;text-align:center;position:relative;transition:all .2s}
+.pkg:active{transform:scale(0.96)}
+.method{flex:1;border-radius:14px;padding:13px 6px;text-align:center;transition:all .2s}
+.method:active{transform:scale(0.95)}
+.net{flex:1;border-radius:10px;padding:9px;font-size:12px;font-weight:700;transition:all .2s}
+
+/* section title */
+.sec-title{font-size:15px;font-weight:800;color:var(--mut);text-align:center;margin-bottom:14px;letter-spacing:.5px}
+
+/* reviews */
+.review{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:12px}
+.review-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--grn),#0e5c42);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;flex-shrink:0}
+.stars{color:#FFD700;font-size:14px;letter-spacing:2px}
+
+/* stats counter */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 8px;text-align:center}
+.stat-num{font-size:26px;font-weight:900}
+.stat-lbl{font-size:11px;color:var(--mut);margin-top:4px}
+
+.notif{position:fixed;top:20px;left:50%;transform:translateX(-50%);border-radius:12px;padding:13px 24px;z-index:9999;font-weight:700;font-size:14px;display:none;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,0.4)}
+
+.divider{display:flex;align-items:center;gap:12px;margin:24px 0;color:var(--mut);font-size:13px;font-weight:700}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
 </style>
 </head>
 <body>
-
+<div class="bg-glow"></div>
 <div id="notif" class="notif"></div>
 
 <!-- HOME -->
 <div id="home" class="page show">
 <nav class="nav">
-  <span class="logo">🎮 TN Shop</span>
+  <div class="logo"><span class="logo-icon">🎮</span><span class="logo-txt">TN Shop</span></div>
   <button class="btn-sm" onclick="go('admin')">⚙ إدارة</button>
 </nav>
 <div class="wrap">
-  <div style="text-align:center;margin-bottom:28px">
-    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.25);border-radius:50px;padding:8px 20px;margin-bottom:16px">
-      <span class="dot"></span>
-      <span style="color:#26A17B;font-weight:700;font-size:13px">متاح الآن للشراء</span>
-    </div>
-    <h1 style="font-size:clamp(20px,5vw,38px);font-weight:900;line-height:1.3;margin-bottom:8px">
-      متجر <span style="color:#26A17B">USDT</span> و <span style="color:#FFD700">الألعاب</span> و <span style="color:#FF4E8B">الاشتراكات</span>
-    </h1>
-    <p style="color:#8892A4;font-size:14px">دفع آمن عبر D17 · Flouci · IZI Wallet</p>
+  <div class="hero">
+    <div class="badge"><span class="dot"></span><span style="color:var(--grn);font-weight:700;font-size:13px">متجر موثوق · تسليم فوري</span></div>
+    <h1>متجرك التونسي للـ <span class="gr-g">USDT</span><br>و <span class="gr-y">الألعاب</span> و <span class="gr-p">الاشتراكات</span></h1>
+    <p style="color:var(--mut);font-size:15px">دفع آمن 100% عبر D17 · Flouci · IZI Wallet</p>
   </div>
 
-  <div class="grid2" style="margin-bottom:12px">
-    <button class="svc-btn" style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.3)" onclick="go('usdt')">
-      <div style="font-size:38px">₮</div>
-      <div style="font-size:16px;font-weight:900;color:#26A17B;margin:8px 0 4px">شراء USDT</div>
-      <div style="font-size:19px;font-weight:900;color:#4ECBA0">4.7 <span style="font-size:11px;color:#8892A4">TND/USDT</span></div>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-num gr-g">+1200</div><div class="stat-lbl">عميل سعيد</div></div>
+    <div class="stat"><div class="stat-num gr-y">+5000</div><div class="stat-lbl">طلب منجز</div></div>
+    <div class="stat"><div class="stat-num gr-p">4.9★</div><div class="stat-lbl">تقييم</div></div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:14px">
+    <button class="svc" style="background:linear-gradient(135deg,rgba(38,161,123,0.15),rgba(38,161,123,0.03));border:1px solid rgba(38,161,123,0.3)" onclick="go('usdt')">
+      <div class="svc-icon">₮</div>
+      <div style="font-size:17px;font-weight:900;color:var(--grn);margin-bottom:5px">شراء USDT</div>
+      <div style="font-size:21px;font-weight:900;color:var(--grn2)">4.7 <span style="font-size:11px;color:var(--mut)">TND/USDT</span></div>
     </button>
-    <button class="svc-btn" style="background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3)" onclick="go('ff')">
-      <div style="font-size:38px">💎</div>
-      <div style="font-size:16px;font-weight:900;color:#FFD700;margin:8px 0 4px">جواهر FF</div>
-      <div style="font-size:19px;font-weight:900;color:#FF6B00">من 5 <span style="font-size:11px;color:#8892A4">دينار</span></div>
+    <button class="svc" style="background:linear-gradient(135deg,rgba(255,165,0,0.15),rgba(255,107,0,0.03));border:1px solid rgba(255,165,0,0.3)" onclick="go('ff')">
+      <div class="svc-icon">💎</div>
+      <div style="font-size:17px;font-weight:900;color:#FFD700;margin-bottom:5px">جواهر Free Fire</div>
+      <div style="font-size:21px;font-weight:900;color:#FF6B00">من 5 <span style="font-size:11px;color:var(--mut)">دينار</span></div>
     </button>
   </div>
 
-  <div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:18px;padding:14px;margin-bottom:18px">
-    <div style="font-size:13px;font-weight:800;color:#8892A4;margin-bottom:10px;text-align:center">🔑 الاشتراكات الشهرية</div>
+  <div class="card" style="padding:18px;margin-bottom:24px">
+    <div class="sec-title">🔑 الاشتراكات الشهرية</div>
     <div class="grid2">
-      <button class="sub-btn" style="background:rgba(255,0,0,0.10);border:1px solid rgba(255,0,0,0.3)" onclick="goSub('youtube','YouTube Premium','▶️',55,'#FF0000')">
-        <div style="font-size:26px;margin-bottom:4px">▶️</div>
-        <div style="font-size:12px;font-weight:800;color:#FF0000;margin-bottom:3px">YouTube Premium</div>
-        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">بدون إعلانات</div>
-        <div style="font-size:15px;font-weight:900;color:#fff">55 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+      <button class="sub" style="background:linear-gradient(135deg,rgba(255,0,0,0.12),transparent);border:1px solid rgba(255,0,0,0.3)" onclick="goSub('youtube','YouTube Premium','▶️',55,'#FF0000')">
+        <div style="font-size:28px;margin-bottom:5px">▶️</div>
+        <div style="font-size:12px;font-weight:800;color:#FF4444;margin-bottom:3px">YouTube Premium</div>
+        <div style="font-size:10px;color:var(--mut);margin-bottom:4px">بدون إعلانات</div>
+        <div style="font-size:15px;font-weight:900">55 <span style="font-size:10px;color:var(--mut)">TND</span></div>
       </button>
-      <button class="sub-btn" style="background:rgba(255,78,139,0.12);border:1px solid rgba(255,78,139,0.35)" onclick="goSub('cupcat','Cupcat','🎵',18,'#FF4E8B')">
-        <div style="font-size:26px;margin-bottom:4px">🎵</div>
+      <button class="sub" style="background:linear-gradient(135deg,rgba(255,78,139,0.12),transparent);border:1px solid rgba(255,78,139,0.35)" onclick="goSub('cupcat','Cupcat','🎵',18,'#FF4E8B')">
+        <div style="font-size:28px;margin-bottom:5px">🎵</div>
         <div style="font-size:12px;font-weight:800;color:#FF4E8B;margin-bottom:3px">Cupcat</div>
-        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">موسيقى بدون انقطاع</div>
-        <div style="font-size:15px;font-weight:900;color:#fff">18 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+        <div style="font-size:10px;color:var(--mut);margin-bottom:4px">موسيقى بلا حدود</div>
+        <div style="font-size:15px;font-weight:900">18 <span style="font-size:10px;color:var(--mut)">TND</span></div>
       </button>
-      <button class="sub-btn" style="background:rgba(16,163,127,0.12);border:1px solid rgba(16,163,127,0.35)" onclick="goSub('chatgpt','ChatGPT Plus','🤖',80,'#10A37F')">
-        <div style="font-size:26px;margin-bottom:4px">🤖</div>
-        <div style="font-size:12px;font-weight:800;color:#10A37F;margin-bottom:3px">ChatGPT Plus</div>
-        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">GPT-4 بدون حدود</div>
-        <div style="font-size:15px;font-weight:900;color:#fff">80 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+      <button class="sub" style="background:linear-gradient(135deg,rgba(16,163,127,0.12),transparent);border:1px solid rgba(16,163,127,0.35)" onclick="goSub('chatgpt','ChatGPT Plus','🤖',80,'#10A37F')">
+        <div style="font-size:28px;margin-bottom:5px">🤖</div>
+        <div style="font-size:12px;font-weight:800;color:#10D9A0;margin-bottom:3px">ChatGPT Plus</div>
+        <div style="font-size:10px;color:var(--mut);margin-bottom:4px">GPT-4 بلا حدود</div>
+        <div style="font-size:15px;font-weight:900">80 <span style="font-size:10px;color:var(--mut)">TND</span></div>
       </button>
-      <button class="sub-btn" style="background:rgba(204,120,92,0.12);border:1px solid rgba(204,120,92,0.35)" onclick="goSub('claude','Claude Pro','🧠',80,'#CC785C')">
-        <div style="font-size:26px;margin-bottom:4px">🧠</div>
-        <div style="font-size:12px;font-weight:800;color:#CC785C;margin-bottom:3px">Claude Pro</div>
-        <div style="font-size:10px;color:#8892A4;margin-bottom:3px">أقوى مساعد AI</div>
-        <div style="font-size:15px;font-weight:900;color:#fff">80 <span style="font-size:10px;color:#8892A4">TND/شهر</span></div>
+      <button class="sub" style="background:linear-gradient(135deg,rgba(204,120,92,0.12),transparent);border:1px solid rgba(204,120,92,0.35)" onclick="goSub('claude','Claude Pro','🧠',80,'#CC785C')">
+        <div style="font-size:28px;margin-bottom:5px">🧠</div>
+        <div style="font-size:12px;font-weight:800;color:#E0967A;margin-bottom:3px">Claude Pro</div>
+        <div style="font-size:10px;color:var(--mut);margin-bottom:4px">أقوى مساعد AI</div>
+        <div style="font-size:15px;font-weight:900">80 <span style="font-size:10px;color:var(--mut)">TND</span></div>
       </button>
     </div>
   </div>
 
-  <div style="font-size:13px;font-weight:800;color:#8892A4;text-align:center;margin-bottom:10px">💳 طرق الدفع</div>
-  <div class="grid3">
-    <div style="background:rgba(255,107,0,0.12);border:1px solid rgba(255,107,0,0.4);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px">📱</div><div style="font-size:12px;font-weight:700;color:#FF6B00;margin-top:3px">D17</div></div>
-    <div style="background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.4);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px">💜</div><div style="font-size:12px;font-weight:700;color:#7C3AED;margin-top:3px">Flouci</div></div>
-    <div style="background:rgba(5,150,105,0.12);border:1px solid rgba(5,150,105,0.4);border-radius:12px;padding:12px;text-align:center"><div style="font-size:20px">💚</div><div style="font-size:12px;font-weight:700;color:#059669;margin-top:3px">IZI Wallet</div></div>
+  <div class="sec-title">💳 طرق الدفع المتاحة</div>
+  <div class="grid3" style="margin-bottom:28px">
+    <div class="pay" style="background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.4)"><div style="font-size:24px">📱</div><div style="font-size:12px;font-weight:700;color:#FF6B00;margin-top:4px">D17</div></div>
+    <div class="pay" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.4)"><div style="font-size:24px">💜</div><div style="font-size:12px;font-weight:700;color:#9B6DFF;margin-top:4px">Flouci</div></div>
+    <div class="pay" style="background:rgba(5,150,105,0.1);border:1px solid rgba(5,150,105,0.4)"><div style="font-size:24px">💚</div><div style="font-size:12px;font-weight:700;color:#10B981;margin-top:4px">IZI Wallet</div></div>
+  </div>
+
+  <div class="sec-title">⭐ آراء عملائنا</div>
+  <div class="review">
+    <div class="review-head"><div class="avatar">أ</div><div><div style="font-weight:800;font-size:14px">أحمد بن علي</div><div class="stars">★★★★★</div></div></div>
+    <div style="color:var(--mut);font-size:14px;line-height:1.6">خدمة ممتازة وسريعة جداً! طلبت جواهر ووصلتني في أقل من 5 دقائق. أنصح به بشدة 🔥</div>
+  </div>
+  <div class="review">
+    <div class="review-head"><div class="avatar" style="background:linear-gradient(135deg,#7C3AED,#4C1D95)">س</div><div><div style="font-weight:800;font-size:14px">سامي التونسي</div><div class="stars">★★★★★</div></div></div>
+    <div style="color:var(--mut);font-size:14px;line-height:1.6">اشتريت USDT بسعر ممتاز والتعامل كان احترافي. شكراً على الثقة 💚</div>
+  </div>
+  <div class="review">
+    <div class="review-head"><div class="avatar" style="background:linear-gradient(135deg,#FF6B00,#FFD700)">ف</div><div><div style="font-weight:800;font-size:14px">فاطمة ق.</div><div class="stars">★★★★★</div></div></div>
+    <div style="color:var(--mut);font-size:14px;line-height:1.6">اشتراك يوتيوب اشتغل فوراً والسعر أرخص من غيرهم. متجر موثوق 👌</div>
+  </div>
+
+  <div style="text-align:center;color:var(--mut);font-size:13px;margin-top:24px;padding-top:20px;border-top:1px solid var(--border)">
+    TN Shop © 2026 · صُنع بـ 💚 في تونس
   </div>
 </div>
 </div>
@@ -114,36 +197,36 @@ label{font-size:13px;color:#8892A4;display:block;margin-bottom:6px}
 <!-- USDT -->
 <div id="usdt" class="page">
 <nav class="nav">
-  <span class="logo">₮ شراء USDT</span>
+  <div class="logo"><span class="logo-icon" style="background:linear-gradient(135deg,#26A17B,#0e5c42)">₮</span><span class="logo-txt">شراء USDT</span></div>
   <button class="btn-sm" onclick="go('home')">← رجوع</button>
 </nav>
 <div class="wrap-sm">
 <div class="card">
-  <div style="background:rgba(38,161,123,0.1);border:1px solid rgba(38,161,123,0.2);border-radius:10px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-    <span style="color:#8892A4;font-size:13px">السعر الثابت</span>
-    <span style="color:#26A17B;font-weight:900;font-size:16px">4.7 TND / USDT</span>
+  <div style="background:linear-gradient(135deg,rgba(38,161,123,0.12),transparent);border:1px solid rgba(38,161,123,0.25);border-radius:14px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+    <span style="color:var(--mut);font-size:13px">السعر الثابت</span>
+    <span style="color:var(--grn);font-weight:900;font-size:18px">4.7 TND / USDT</span>
   </div>
   <label>الكمية (USDT)</label>
-  <input class="inp" id="u-amt" type="number" placeholder="100" oninput="calcT()"/>
-  <div style="background:rgba(38,161,123,0.08);border:1px solid rgba(38,161,123,0.2);border-radius:10px;padding:12px 14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center">
-    <span style="color:#8892A4;font-size:13px">ستدفع</span>
-    <span id="u-tnd" style="color:#26A17B;font-weight:900;font-size:20px">0.00 TND</span>
+  <input class="inp" id="u-amt" type="number" placeholder="100" oninput="calcT()" style="font-size:18px;font-weight:700"/>
+  <div style="background:linear-gradient(135deg,rgba(38,161,123,0.1),transparent);border:1px solid rgba(38,161,123,0.25);border-radius:14px;padding:14px 16px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center">
+    <span style="color:var(--mut);font-size:13px">ستدفع</span>
+    <span id="u-tnd" style="color:var(--grn);font-weight:900;font-size:22px">0.00 TND</span>
   </div>
   <label>الشبكة</label>
-  <div style="display:flex;gap:8px;margin-bottom:14px">
-    <button id="n0" class="net-btn" style="flex:1;background:rgba(38,161,123,0.2);border:1px solid #26A17B;color:#26A17B" onclick="setN('TRC20',0)">TRC20</button>
-    <button id="n1" class="net-btn" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#8892A4" onclick="setN('BEP20',1)">BEP20</button>
-    <button id="n2" class="net-btn" style="flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#8892A4" onclick="setN('ERC20',2)">ERC20</button>
+  <div style="display:flex;gap:8px;margin-bottom:16px">
+    <button id="n0" class="net" style="background:rgba(38,161,123,0.2);border:1px solid var(--grn);color:var(--grn)" onclick="setN('TRC20',0)">TRC20</button>
+    <button id="n1" class="net" style="background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--mut)" onclick="setN('BEP20',1)">BEP20</button>
+    <button id="n2" class="net" style="background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--mut)" onclick="setN('ERC20',2)">ERC20</button>
   </div>
   <label>عنوان المحفظة</label>
-  <input class="inp" id="u-wal" placeholder="عنوان المحفظة..." style="direction:ltr;text-align:left;font-size:13px"/>
+  <input class="inp" id="u-wal" placeholder="عنوان محفظتك..." style="direction:ltr;text-align:left;font-size:13px"/>
   <label>اسمك</label>
   <input class="inp" id="u-name" placeholder="الاسم الكامل"/>
-  <label>طريقة الدفع</label>
-  <div style="display:flex;gap:8px;margin-bottom:18px">
-    <button id="um0" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('u',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></button>
-    <button id="um1" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('u',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></button>
-    <button id="um2" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('u',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></button>
+  <label>💳 طريقة الدفع</label>
+  <div style="display:flex;gap:8px;margin-bottom:20px">
+    <button id="um0" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('u',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">D17</div></button>
+    <button id="um1" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('u',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">Flouci</div></button>
+    <button id="um2" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('u',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">IZI</div></button>
   </div>
   <button class="btn" onclick="subU()">تأكيد الطلب ✅</button>
 </div>
@@ -153,31 +236,38 @@ label{font-size:13px;color:#8892A4;display:block;margin-bottom:6px}
 <!-- FF -->
 <div id="ff" class="page">
 <nav class="nav">
-  <span class="logo">💎 Free Fire</span>
+  <div class="logo"><span class="logo-icon" style="background:linear-gradient(135deg,#FFD700,#FF6B00)">💎</span><span class="logo-txt" style="background:linear-gradient(135deg,#FFD700,#FF6B00);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Free Fire</span></div>
   <button class="btn-sm" onclick="go('home')">← رجوع</button>
 </nav>
 <div class="wrap-sm">
 <div class="card">
-  <label style="margin-bottom:10px;font-size:15px;font-weight:800;color:#E8EDF5">اختر الباقة</label>
-  <div class="grid2" style="margin-bottom:16px">
-    <button id="p0" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(0,100,5)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">100</div><div style="font-size:10px;color:#8892A4">جوهرة</div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">5 TND</div></button>
-    <button id="p1" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(1,310,14)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">310</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+10</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">14 TND</div></button>
-    <button id="p2" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(2,520,23)">
-      <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B00,#FFD700);border-radius:20px;padding:2px 8px;font-size:9px;font-weight:800;color:#000;white-space:nowrap">🔥 الأكثر</div>
-      <div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">520</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+20</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">23 TND</div>
+  <label style="font-size:15px;font-weight:800;color:var(--txt);margin-bottom:12px">💎 اختر باقة الجواهر</label>
+  <div class="grid2" style="margin-bottom:18px">
+    <button id="p0" class="pkg" style="background:rgba(255,255,255,0.03);border:2px solid var(--border)" onclick="setP(0,100,5)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900">100</div><div style="font-size:10px;color:var(--mut)">جوهرة</div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:4px">5 TND</div></button>
+    <button id="p1" class="pkg" style="background:rgba(255,255,255,0.03);border:2px solid var(--border)" onclick="setP(1,310,14)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900">310</div><div style="font-size:10px;color:var(--mut)">جوهرة <span style="color:var(--grn)">+10</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:4px">14 TND</div></button>
+    <button id="p2" class="pkg" style="background:rgba(255,215,0,0.08);border:2px solid var(--border)" onclick="setP(2,520,23)">
+      <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#FF6B00,#FFD700);border-radius:20px;padding:2px 10px;font-size:9px;font-weight:800;color:#000;white-space:nowrap;box-shadow:0 2px 8px rgba(255,165,0,0.5)">🔥 الأكثر طلباً</div>
+      <div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900">520</div><div style="font-size:10px;color:var(--mut)">جوهرة <span style="color:var(--grn)">+20</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:4px">23 TND</div>
     </button>
-    <button id="p3" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(3,1060,45)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">1060</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+50</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">45 TND</div></button>
-    <button id="p4" class="pkg-btn" style="background:rgba(255,255,255,0.03);border:2px solid rgba(255,255,255,0.08)" onclick="setP(4,2120,90)"><div style="font-size:18px">💎</div><div style="font-size:15px;font-weight:900;color:#fff">2120</div><div style="font-size:10px;color:#8892A4">جوهرة <span style="color:#26A17B">+100</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:3px">90 TND</div></button>
+    <button id="p3" class="pkg" style="background:rgba(255,255,255,0.03);border:2px solid var(--border)" onclick="setP(3,1060,45)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900">1060</div><div style="font-size:10px;color:var(--mut)">جوهرة <span style="color:var(--grn)">+50</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:4px">45 TND</div></button>
+    <button id="p4" class="pkg" style="background:rgba(255,255,255,0.03);border:2px solid var(--border)" onclick="setP(4,2120,84)"><div style="font-size:20px">💎</div><div style="font-size:16px;font-weight:900">2120</div><div style="font-size:10px;color:var(--mut)">جوهرة <span style="color:var(--grn)">+100</span></div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:4px">84 TND</div></button>
   </div>
-  <label>ID اللاعب</label>
+
+  <div class="divider">أو اشترك</div>
+  <div class="grid2" style="margin-bottom:18px">
+    <button id="fs0" class="pkg" style="background:rgba(255,68,0,0.1);border:2px solid rgba(255,68,0,0.3)" onclick="setFS(0,45)"><div style="font-size:20px">🔥</div><div style="font-size:14px;font-weight:900;color:#FF4400">شهري</div><div style="font-size:10px;color:var(--mut)">عضوية شهر كامل</div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:4px">45 TND</div></button>
+    <button id="fs1" class="pkg" style="background:rgba(255,165,0,0.1);border:2px solid rgba(255,165,0,0.3)" onclick="setFS(1,10)"><div style="font-size:20px">⚡</div><div style="font-size:14px;font-weight:900;color:#FFA500">أسبوعي</div><div style="font-size:10px;color:var(--mut)">عضوية أسبوع</div><div style="font-size:14px;font-weight:900;color:#FF6B00;margin-top:4px">10 TND</div></button>
+  </div>
+
+  <label>🎮 ID اللاعب</label>
   <input class="inp" id="f-id" placeholder="Free Fire ID..." style="direction:ltr;text-align:left"/>
   <label>اسمك</label>
   <input class="inp" id="f-name" placeholder="الاسم الكامل"/>
-  <label>طريقة الدفع</label>
-  <div style="display:flex;gap:8px;margin-bottom:18px">
-    <button id="fm0" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('f',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></button>
-    <button id="fm1" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('f',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></button>
-    <button id="fm2" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('f',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></button>
+  <label>💳 طريقة الدفع</label>
+  <div style="display:flex;gap:8px;margin-bottom:20px">
+    <button id="fm0" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('f',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">D17</div></button>
+    <button id="fm1" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('f',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">Flouci</div></button>
+    <button id="fm2" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('f',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">IZI</div></button>
   </div>
   <button class="btn btn-ff" onclick="subF()">تأكيد الطلب ✅</button>
 </div>
@@ -187,24 +277,24 @@ label{font-size:13px;color:#8892A4;display:block;margin-bottom:6px}
 <!-- SUB -->
 <div id="sub" class="page">
 <nav class="nav">
-  <span id="sub-logo" class="logo">🔑 اشتراك</span>
+  <div class="logo"><span id="sub-logo" class="logo-txt">🔑 اشتراك</span></div>
   <button class="btn-sm" onclick="go('home')">← رجوع</button>
 </nav>
 <div class="wrap-sm">
 <div class="card">
-  <div id="sub-box" style="border-radius:12px;padding:14px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1)">
-    <span style="color:#8892A4">الاشتراك</span>
+  <div id="sub-box" style="border-radius:14px;padding:16px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,0.04);border:1px solid var(--border)">
+    <span style="color:var(--mut)">الاشتراك المختار</span>
     <span id="sub-detail" style="font-weight:900;font-size:15px"></span>
   </div>
-  <label>البريد الإلكتروني</label>
+  <label>📧 البريد الإلكتروني للحساب</label>
   <input class="inp" id="s-email" type="email" placeholder="example@email.com" style="direction:ltr;text-align:left"/>
   <label>اسمك</label>
   <input class="inp" id="s-name" placeholder="الاسم الكامل"/>
-  <label>طريقة الدفع</label>
-  <div style="display:flex;gap:8px;margin-bottom:18px">
-    <button id="sm0" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('s',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">D17</div></button>
-    <button id="sm1" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('s',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">Flouci</div></button>
-    <button id="sm2" class="method-btn" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)" onclick="setM('s',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:#8892A4;margin-top:3px">IZI</div></button>
+  <label>💳 طريقة الدفع</label>
+  <div style="display:flex;gap:8px;margin-bottom:20px">
+    <button id="sm0" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('s',0,'D17')"><div style="font-size:20px">📱</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">D17</div></button>
+    <button id="sm1" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('s',1,'Flouci')"><div style="font-size:20px">💜</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">Flouci</div></button>
+    <button id="sm2" class="method" style="background:rgba(255,255,255,0.03);border:1px solid var(--border)" onclick="setM('s',2,'IZI')"><div style="font-size:20px">💚</div><div style="font-size:11px;font-weight:700;color:var(--mut);margin-top:3px">IZI</div></button>
   </div>
   <button id="sub-btn" class="btn" onclick="subS()">تأكيد الطلب ✅</button>
 </div>
@@ -214,19 +304,19 @@ label{font-size:13px;color:#8892A4;display:block;margin-bottom:6px}
 <!-- CONFIRM -->
 <div id="confirm" class="page">
 <div class="wrap-sm" style="padding-top:30px">
-<div class="card" style="border-color:rgba(38,161,123,0.3);text-align:center">
-  <div style="font-size:50px;margin-bottom:10px">✅</div>
-  <h2 style="font-size:20px;margin-bottom:6px">تم استلام طلبك!</h2>
-  <p id="c-id" style="color:#8892A4;font-size:13px;margin-bottom:20px"></p>
-  <div id="c-pay" style="border-radius:13px;padding:16px;margin-bottom:14px">
-    <div id="c-lbl" style="font-size:12px;color:#8892A4;margin-bottom:6px"></div>
-    <div id="c-phone" style="font-size:28px;font-weight:900;letter-spacing:2px"></div>
-    <div style="font-size:13px;color:#8892A4;margin-top:8px">المبلغ: <strong id="c-amt" style="color:#fff;font-size:16px"></strong></div>
+<div class="card" style="border-color:rgba(38,161,123,0.35);text-align:center">
+  <div style="font-size:56px;margin-bottom:10px;filter:drop-shadow(0 4px 16px rgba(38,161,123,0.4))">✅</div>
+  <h2 style="font-size:21px;margin-bottom:6px;font-weight:900">تم استلام طلبك!</h2>
+  <p id="c-id" style="color:var(--mut);font-size:13px;margin-bottom:22px"></p>
+  <div id="c-pay" style="border-radius:14px;padding:18px;margin-bottom:14px">
+    <div id="c-lbl" style="font-size:12px;color:var(--mut);margin-bottom:6px"></div>
+    <div id="c-phone" style="font-size:30px;font-weight:900;letter-spacing:2px"></div>
+    <div style="font-size:13px;color:var(--mut);margin-top:8px">المبلغ: <strong id="c-amt" style="color:#fff;font-size:17px"></strong></div>
   </div>
-  <div style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);border-radius:12px;padding:14px;margin-bottom:14px">
-    <div style="font-size:13px;color:#25D366;font-weight:700;margin-bottom:6px">📲 الخطوة التالية</div>
-    <div style="font-size:13px;color:#8892A4;margin-bottom:10px">أرسل لقطة شاشة التحويل عبر واتساب وسنرسل لك الخدمة خلال 5-10 دقائق</div>
-    <button class="btn btn-wa" onclick="openWA()">💬 فتح واتساب</button>
+  <div style="background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.25);border-radius:14px;padding:16px;margin-bottom:14px">
+    <div style="font-size:13px;color:#25D366;font-weight:700;margin-bottom:6px">📲 الخطوة الأخيرة</div>
+    <div style="font-size:13px;color:var(--mut);margin-bottom:12px;line-height:1.6">أرسل لقطة شاشة التحويل عبر واتساب وسنرسل لك طلبك خلال 5-10 دقائق</div>
+    <button class="btn btn-wa" onclick="openWA()">💬 إرسال عبر واتساب</button>
   </div>
   <button class="btn btn-ghost" onclick="go('home')">طلب جديد</button>
 </div>
@@ -236,21 +326,72 @@ label{font-size:13px;color:#8892A4;display:block;margin-bottom:6px}
 <!-- ADMIN -->
 <div id="admin" class="page">
 <nav class="nav">
-  <span class="logo">📊 الإدارة</span>
+  <div class="logo"><span class="logo-txt">📊 الإدارة</span></div>
   <button class="btn-sm" onclick="go('home')">خروج</button>
 </nav>
-<div id="a-login" style="max-width:360px;margin:60px auto;padding:0 14px">
+<div id="a-login" style="max-width:380px;margin:60px auto;padding:0 14px;position:relative;z-index:1">
   <div class="card" style="text-align:center">
-    <div style="font-size:36px;margin-bottom:12px">🔐</div>
-    <h2 style="margin-bottom:18px;font-size:18px">لوحة التحكم</h2>
+    <div style="font-size:40px;margin-bottom:12px">🔐</div>
+    <h2 style="margin-bottom:20px;font-size:19px">لوحة التحكم</h2>
     <input class="inp" id="a-pass" type="password" placeholder="كلمة المرور" style="text-align:center"/>
     <button class="btn" onclick="aLogin()">دخول</button>
   </div>
 </div>
-<div id="a-dash" style="display:none;max-width:800px;margin:0 auto;padding:24px 14px">
+<div id="a-dash" style="display:none;max-width:800px;margin:0 auto;padding:24px 14px;position:relative;z-index:1">
   <div class="grid3" style="margin-bottom:18px">
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:14px;text-align:center"><div id="a-all" style="font-size:22px;font-weight:900;color:#26A17B">0</div><div style="font-size:11px;color:#8892A4;margin-top:3px">الكل</div></div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:14px;text-align:center"><div id="a-usdt" style="font-size:22px;font-weight:900;color:#4ECBA0">0</div><div style="font-size:11px;color:#8892A4;margin-top:3px">USDT</div></div>
-    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:13px;padding:14px;text-align:center"><div id="a-oth" style="font-size:22px;font-weight:900;color:#FFD700">0</div><div style="font-size:11px;color:#8892A4;margin-top:3px">FF+اشتراكات</div></div>
+    <div class="stat"><div id="a-all" class="stat-num gr-g">0</div><div class="stat-lbl">الكل</div></div>
+    <div class="stat"><div id="a-usdt" class="stat-num gr-g">0</div><div class="stat-lbl">USDT</div></div>
+    <div class="stat"><div id="a-oth" class="stat-num gr-y">0</div><div class="stat-lbl">FF+اشتراكات</div></div>
   </div>
-  <div style="background:rgba(255
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="padding:14px 18px;border-bottom:1px solid var(--border);font-weight:700;font-size:14px">📋 الطلبات الواردة</div>
+    <div id="a-list"><div style="text-align:center;padding:36px;color:var(--mut)">لا توجد طلبات بعد</div></div>
+  </div>
+</div>
+</div>
+
+<script>
+var WA="21696530971";
+var PH={D17:"96 530 971",Flouci:"51 186 982",IZI:"96 530 971"};
+var MC={D17:{bg:"rgba(255,107,0,0.12)",br:"rgba(255,107,0,0.4)",c:"#FF6B00"},Flouci:{bg:"rgba(124,58,237,0.12)",br:"rgba(124,58,237,0.4)",c:"#9B6DFF"},IZI:{bg:"rgba(5,150,105,0.12)",br:"rgba(5,150,105,0.4)",c:"#10B981"}};
+var orders=[],curO=null,curNet="TRC20",curPkg=null,curSub=null;
+var uM=null,fM=null,sM=null,stock=5000;
+
+function go(id){document.querySelectorAll(".page").forEach(function(p){p.classList.remove("show");});document.getElementById(id).classList.add("show");window.scrollTo(0,0);}
+
+function msg(t,type){var n=document.getElementById("notif");n.textContent=t;n.style.background=type=="error"?"#450a0a":"#022c22";n.style.border="1px solid "+(type=="error"?"#ef4444":"#26A17B");n.style.color="#fff";n.style.display="block";setTimeout(function(){n.style.display="none";},3000);}
+
+function goSub(id,name,icon,price,color){curSub={id:id,name:name,icon:icon,price:price,color:color};sM=null;resetM("s");document.getElementById("sub-logo").textContent=icon+" "+name;document.getElementById("sub-detail").textContent=icon+" "+name+" — "+price+" TND";document.getElementById("sub-detail").style.color=color;document.getElementById("sub-btn").style.background="linear-gradient(135deg,"+color+","+color+"99)";document.getElementById("s-email").value="";document.getElementById("s-name").value="";go("sub");}
+
+function resetM(p){for(var i=0;i<3;i++){var el=document.getElementById(p+"m"+i);if(el){el.style.background="rgba(255,255,255,0.03)";el.style.border="1px solid var(--border)";el.querySelector("div:last-child").style.color="#7E8AA0";}}}
+
+function setM(p,i,name){resetM(p);if(p=="u")uM=name;else if(p=="f")fM=name;else sM=name;var el=document.getElementById(p+"m"+i);if(el){el.style.background=MC[name].bg;el.style.border="1px solid "+MC[name].br;el.querySelector("div:last-child").style.color=MC[name].c;}}
+
+function setN(name,i){curNet=name;for(var j=0;j<3;j++){var el=document.getElementById("n"+j);if(el){el.style.background=j==i?"rgba(38,161,123,0.2)":"rgba(255,255,255,0.04)";el.style.border="1px solid "+(j==i?"#26A17B":"rgba(255,255,255,0.08)");el.style.color=j==i?"#26A17B":"#7E8AA0";}}}
+
+function setP(i,gems,price){curPkg={i:i,gems:gems,price:price,isSub:false};for(var j=0;j<5;j++){var el=document.getElementById("p"+j);if(el){el.style.border="2px solid "+(j==i?"#FFD700":"rgba(255,255,255,0.08)");}}for(var k=0;k<2;k++){var e=document.getElementById("fs"+k);if(e)e.style.border="2px solid "+(k==0?"rgba(255,68,0,0.3)":"rgba(255,165,0,0.3)");}}
+
+function setFS(i,price){curPkg={i:"fs"+i,gems:null,price:price,isSub:true,subType:i==0?"شهري":"أسبوعي"};for(var j=0;j<5;j++){var el=document.getElementById("p"+j);if(el)el.style.border="2px solid rgba(255,255,255,0.08)";}for(var k=0;k<2;k++){var e=document.getElementById("fs"+k);if(e)e.style.border="2px solid "+(k==i?"#FFD700":(k==0?"rgba(255,68,0,0.3)":"rgba(255,165,0,0.3)"));}}
+
+function calcT(){var a=parseFloat(document.getElementById("u-amt").value)||0;document.getElementById("u-tnd").textContent=(a*4.7).toFixed(2)+" TND";}
+
+function showConf(o){curO=o;document.getElementById("c-id").textContent="رقم الطلب: "+o.id;var mc=MC[o.method];var cp=document.getElementById("c-pay");cp.style.background=mc.bg;cp.style.border="1px solid "+mc.br;document.getElementById("c-lbl").textContent="حوّل المبلغ لهذا الرقم عبر "+o.method;document.getElementById("c-phone").style.color=mc.c;document.getElementById("c-phone").textContent=PH[o.method];document.getElementById("c-amt").textContent=o.tnd+" TND";go("confirm");setTimeout(openWA,800);}
+
+function buildMsg(o){if(o.type=="usdt")return encodeURIComponent("🟢 طلب USDT\nالاسم: "+o.name+"\nالكمية: "+o.amount+" USDT\nالمبلغ: "+o.tnd+" TND\nالشبكة: "+o.network+"\nالمحفظة: "+o.wallet+"\nالدفع: "+o.method+"\nرقم: "+o.id);if(o.type=="ff")return encodeURIComponent("🔥 طلب Free Fire\nالاسم: "+o.name+"\nالطلب: "+o.gems+"\nالمبلغ: "+o.tnd+" TND\nID: "+o.playerId+"\nالدفع: "+o.method+"\nرقم: "+o.id);return encodeURIComponent(o.subIcon+" اشتراك "+o.subName+"\nالاسم: "+o.name+"\nالمبلغ: "+o.tnd+" TND\nالإيميل: "+o.email+"\nالدفع: "+o.method+"\nرقم: "+o.id);}
+
+function openWA(){if(curO)window.open("https://wa.me/"+WA+"?text="+buildMsg(curO),"_blank");}
+
+function subU(){var a=parseFloat(document.getElementById("u-amt").value);var w=document.getElementById("u-wal").value.trim();var n=document.getElementById("u-name").value.trim();if(!a||a<=0)return msg("أدخل الكمية","error");if(!w)return msg("أدخل عنوان المحفظة","error");if(!n)return msg("أدخل اسمك","error");if(!uM)return msg("اختر طريقة الدفع","error");if(a>stock)return msg("الكمية غير متوفرة","error");stock-=a;var o={id:"TN-"+Date.now(),type:"usdt",amount:a,tnd:(a*4.7).toFixed(2),wallet:w,network:curNet,name:n,method:uM};orders.unshift(o);showConf(o);}
+
+function subF(){var pid=document.getElementById("f-id").value.trim();var n=document.getElementById("f-name").value.trim();if(!curPkg)return msg("اختر الباقة أو الاشتراك","error");if(!pid)return msg("أدخل ID اللاعب","error");if(!n)return msg("أدخل اسمك","error");if(!fM)return msg("اختر طريقة الدفع","error");var label=curPkg.isSub?("اشتراك "+curPkg.subType):(curPkg.gems+" 💎");var o={id:"FF-"+Date.now(),type:"ff",gems:label,tnd:curPkg.price,playerId:pid,name:n,method:fM};orders.unshift(o);showConf(o);}
+
+function subS(){var e=document.getElementById("s-email").value.trim();var n=document.getElementById("s-name").value.trim();if(!e)return msg("أدخل بريدك الإلكتروني","error");if(!n)return msg("أدخل اسمك","error");if(!sM)return msg("اختر طريقة الدفع","error");var o={id:"SUB-"+Date.now(),type:"sub",subName:curSub.name,subIcon:curSub.icon,tnd:curSub.price,email:e,name:n,method:sM};orders.unshift(o);showConf(o);}
+
+function aLogin(){if(document.getElementById("a-pass").value=="admin123"){document.getElementById("a-login").style.display="none";document.getElementById("a-dash").style.display="block";updAdmin();}else msg("كلمة المرور خاطئة","error");}
+
+function updAdmin(){document.getElementById("a-all").textContent=orders.length;document.getElementById("a-usdt").textContent=orders.filter(function(o){return o.type=="usdt";}).length;document.getElementById("a-oth").textContent=orders.filter(function(o){return o.type!="usdt";}).length;var el=document.getElementById("a-list");if(!orders.length){el.innerHTML="<div style='text-align:center;padding:36px;color:#7E8AA0'>لا توجد طلبات بعد</div>";return;}el.innerHTML=orders.map(function(o,idx){var tc=o.type=="ff"?"#FFD700":o.type=="sub"?"#FF4E8B":"#26A17B";var tl=o.type=="ff"?"💎FF":o.type=="sub"?o.subIcon+o.subName:"₮USDT";var det=o.type=="ff"?"ID: "+o.playerId:o.type=="sub"?"📧 "+o.email:o.network;var val=o.type=="ff"?o.gems:o.type=="sub"?o.subName:o.amount+" USDT";return "<div style='padding:14px 18px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px'><div><div style='font-weight:700;font-size:14px'>"+o.name+" <span style=\"color:"+tc+";font-size:11px\">"+tl+"</span></div><div style='font-size:11px;color:#7E8AA0'>"+o.id+"</div><div style='font-size:11px;color:#4ECBA0'>"+det+"</div></div><div style='text-align:left'><div style='font-weight:800;color:"+tc+";font-size:14px'>"+val+"</div><div style='font-size:12px;color:#7E8AA0'>"+o.tnd+" TND · "+o.method+"</div></div><button onclick=\"waO("+idx+")\" style='background:rgba(37,211,102,0.15);border:1px solid rgba(37,211,102,0.3);border-radius:10px;padding:8px 14px;color:#25D366;font-size:12px;font-weight:700;cursor:pointer;font-family:Tajawal,sans-serif'>💬 واتساب</button></div>";}).join("");}
+
+function waO(idx){window.open("https://wa.me/"+WA+"?text="+buildMsg(orders[idx]),"_blank");}
+</script>
+</body>
+</html>
